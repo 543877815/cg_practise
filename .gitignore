@@ -6,3 +6,4 @@ bin/
 *.user
 *.tga
 x64/
+*.dll
