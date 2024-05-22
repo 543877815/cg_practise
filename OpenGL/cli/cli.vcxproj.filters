@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="hpp">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="cpp">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="shader">
+      <UniqueIdentifier>{9ac90105-110d-4f75-ae4e-604298d86a36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui">
+      <UniqueIdentifier>{aa17cbde-93a6-4282-a261-7f750bd06ac9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{64e28e2f-c8c9-4cda-9bf2-afa78e40d425}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\glad.c">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\includes\imgui\imgui_draw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\includes\imgui\imgui_impl_glfw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\includes\imgui\imgui_impl_opengl3.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\includes\imgui\imgui_tables.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\includes\imgui\imgui_widgets.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\includes\imgui\imgui.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\includes\imgui\imgui_demo.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\includes\imgui\imgui_impl_glfw.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\imgui\imgui_impl_opengl3.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\imgui\imgui_impl_opengl3_loader.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\imgui\imgui_internal.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\imgui\imstb_rectpack.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\imgui\imstb_textedit.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\imgui\imstb_truetype.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\imgui\imconfig.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\imgui\imgui.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\callback.h">
+      <Filter>hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\camera.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\glfw_mgr.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\imgui_mgr.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\render_object.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\shader.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\stb\stb_image.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\texture.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\object_data.h">
+      <Filter>hpp</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader\axis.fs">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="shader\axis.vs">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="shader\box.fs">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="shader\box.vs">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="shader\rect.fs">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="shader\rect.vs">
+      <Filter>shader</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="textures\container.jpg">
+      <Filter>source</Filter>
+    </Image>
+    <Image Include="textures\awesomeface.png">
+      <Filter>source</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
