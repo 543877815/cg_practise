@@ -50,6 +50,24 @@ Vec3f barycentric(Vec3f A, Vec3f B, Vec3f C, Vec3f P) {
 	return Vec3f(-1, 1, 1); // in this case generate negative coordinates, it will be thrown away by the rasterizator
 }
 
+Vec3f barycentric(Vec3f pts[3], Vec3f P) {
+	int Xa = pts[0].x;
+	int Xb = pts[1].x;
+	int Xc = pts[2].x;
+	int Ya = pts[0].y;
+	int Yb = pts[1].y;
+	int Yc = pts[2].y;
+	float u1 = (float)Xa * Yb - Xb * Ya;
+	float u = ((Ya - Yb) * P.x + (Xb - Xa) * P.y + u1) / ((Ya - Yb) * Xc + (Xb - Xa) * Yc + u1);
+	float v1 = (float)Xa * Yc - Xc * Ya;
+	float v = ((Ya - Yc) * P.x + (Xc - Xa) * P.y + v1) / ((Ya - Yc) * Xb + (Xc - Xa) * Yb + v1);
+	float a = 1 - u - v;
+	//return Vec3f(1 - u - v, u, v);
+
+	//The order matters£°£°£°£°£°
+	return Vec3f(1 - u - v, v, u);
+}
+
 // œﬂ–‘≤Â÷µ
 std::vector<double> binearColor(std::vector<TGAColor>& colors, std::vector<double>& as) {
 	assert(colors.size() == as.size());
@@ -165,7 +183,8 @@ void triangle_grayScale(Vec3f* pts, Vec3f* normal, Vec2f* uv, float* zbuffer, TG
 
 	for (P.x = bboxmin.x; P.x <= bboxmax.x; P.x++) {
 		for (P.y = bboxmin.y; P.y <= bboxmax.y; P.y++) {
-			Vec3f bc_screen = barycentric(pts[0], pts[1], pts[2], P);
+			//Vec3f bc_screen = barycentric(pts[0], pts[1], pts[2], P);
+			Vec3f bc_screen = barycentric(pts, P);
 			if (bc_screen.x < 0 || bc_screen.y < 0 || bc_screen.z < 0) continue;
 			P.z = 0;
 			for (int i = 0; i < 3; i++) {
@@ -221,6 +240,7 @@ int main(int argc, char** argv) {
 			normal[i] = model->vNormals(nomral_idx[i]);
 			uv_coords[i] = model->vTexCoords(uv_idx[i]);
 		}
+
 		Vec3f n = (world_coords[2] - world_coords[0]) ^ (world_coords[1] - world_coords[0]);
 		n.normalize();
 		float intensity = n * light_dir;
