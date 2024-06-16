@@ -58,25 +58,21 @@ void triangle(Vec3i t0, Vec3i t1, Vec3i t2, Vec2i uv0, Vec2i uv1, Vec2i uv2, TGA
 		if (A.x > B.x) { std::swap(A, B); std::swap(uvA, uvB); }
 		for (int j = A.x; j <= B.x; j++) {
 			float phi = B.x == A.x ? 1. : (float)(j - A.x) / (float)(B.x - A.x);
-			Vec3i   P = Vec3f(A) + Vec3f(B - A) * phi;
+			Vec3i P = Vec3f(A) + Vec3f(B - A) * phi;
 			Vec2i uvP = uvA + (uvB - uvA) * phi;
 			int idx = P.x + P.y * width;
 			if (zbuffer[idx] < P.z) {
 				zbuffer[idx] = P.z;
 				TGAColor color = model->diffuse(uvP);
-				image.set(P.x, P.y, TGAColor(color.r * intensity, color.g * intensity, color.b * intensity));
+				image.set(P.x, P.y, TGAColor(color.r * intensity, color.g * intensity, color.b * intensity, 255));
 			}
 		}
 	}
 }
 
 int main(int argc, char** argv) {
-	if (2 == argc) {
-		model = new Model(argv[1]);
-	}
-	else {
-		model = new Model("obj/african_head.obj");
-	}
+
+	model = new Model("../resources/obj/african_head.obj");
 
 	zbuffer = new int[width * height];
 	for (int i = 0; i < width * height; i++) {
@@ -103,8 +99,11 @@ int main(int argc, char** argv) {
 			float intensity = n * light_dir;
 			if (intensity > 0) {
 				Vec2i uv[3];
+
+				auto uv_i = model->uv(i);
 				for (int k = 0; k < 3; k++) {
-					uv[k] = model->uv(i, k);
+					Vec2f tmp = model->vTexCoords(uv_i[k]);
+					uv[k] = Vec2i(tmp.x * model->, tmp.y);
 				}
 				triangle(screen_coords[0], screen_coords[1], screen_coords[2], uv[0], uv[1], uv[2], image, intensity, zbuffer);
 			}

@@ -2,11 +2,11 @@
 #include <cmath>
 #include <cstdlib>
 #include <limits>
-#include "tgaimage.h"
 #include "model.h"
-#include "geometry.h"
 #include <iostream>
-
+#include <assert.h>
+#include "tgaimage.h"
+#include "geometry.h"
 const TGAColor white = TGAColor(255, 255, 255, 255);
 const TGAColor red = TGAColor(255, 0, 0, 255);
 Model* model = NULL;
@@ -99,38 +99,9 @@ void clamp(double& val, double min, double max) {
 	if (val < min) val = min;
 }
 
-// 获取坐标点下的纹理颜色
-TGAColor getTextureColor(Vec2f& uv, TGAImage& texture) {
-	int textureWidth = texture.get_width();
-	int textureHeight = texture.get_height();
-
-	double uv_x = uv.x * textureWidth;
-	double uv_y = uv.y * textureHeight;
-
-	double x1 = std::floor(uv_x), x2 = std::ceil(uv_x);
-	double y1 = std::floor(uv_y), y2 = std::ceil(uv_y);
-
-	std::vector<double> xs = { x2 - uv_x, uv_x - x1 };
-	std::vector<double> ys = { y2 - uv_y, uv_y - y1 };
-
-	TGAColor color11 = texture.get(x1, y1);
-	TGAColor color12 = texture.get(x1, y2);
-	TGAColor color21 = texture.get(x2, y1);
-	TGAColor color22 = texture.get(x2, y2);
-
-	//std::vector<TGAColor> colors = { color11, color12 };
-	//std::vector<double> color_x1 = binearColor(colors, xs);
-	////colors = { color21, color22 };
-	//std::vector<double> color_x2 = binearColor(colors, xs);
-	//std::vector<double> color = binearColor(color_x1, color_x2, ys);
-
-	//TGAColor result(color_x1[0], color_x1[1], color_x1[2], color_x1[3]);
-	return color11;
-}
-
-void triangle_rgb(Vec3f* pts, Vec3f* normal, Vec2f* uv, float* zbuffer, TGAImage& image, TGAImage& texture) {
+void triangle_rgb(Vec3f* pts, Vec3f* normal, Vec2f* texcoords, float* zbuffer, TGAImage& image, TGAImage& texture, float normal_dot_light) {
 	Vec2f bboxmin(std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
-	Vec2f bboxmax(-std::numeric_limits<float>::max(), -std::numeric_limits<float>::max());
+	Vec2f bboxmax(std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
 	Vec2f clamp(image.get_width() - 1, image.get_height() - 1);
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 2; j++) {
@@ -141,33 +112,35 @@ void triangle_rgb(Vec3f* pts, Vec3f* normal, Vec2f* uv, float* zbuffer, TGAImage
 	Vec3f P;
 	for (P.x = bboxmin.x; P.x <= bboxmax.x; P.x++) {
 		for (P.y = bboxmin.y; P.y <= bboxmax.y; P.y++) {
+			// bary centric
 			Vec3f bc_screen = barycentric(pts[0], pts[1], pts[2], P);
-			int w = texture.get_width();
-			int h = texture.get_height();
 			if (bc_screen.x < 0 || bc_screen.y < 0 || bc_screen.z < 0) continue;
 			P.z = 0;
-			std::vector<TGAColor> textureColors;
-			std::vector<double> as;
+
+			// interpolation
+			Vec2f uv = { 0, 0 };
 			for (int i = 0; i < 3; i++) {
-				P.z += pts[i][2] * bc_screen[i];  // z轴插值
-				textureColors.emplace_back(getTextureColor(uv[i], texture));
-				as.emplace_back(bc_screen[i]);
+				P.z += pts[i][2] * bc_screen[i];
+				uv.x += texcoords[i].x * bc_screen[i] * texture.get_width();
+				uv.y += texcoords[i].y * bc_screen[i] * texture.get_height();
 			}
+
+			// z-test
 			if (zbuffer[int(P.x + P.y * width)] < P.z) {
 				zbuffer[int(P.x + P.y * width)] = P.z;
-				std::vector<double> interpolate_color = binearColor(textureColors, as);
-				TGAColor color(static_cast<int>(interpolate_color[0]),
-					static_cast<int>(interpolate_color[1]),
-					static_cast<int>(interpolate_color[2]),
-					static_cast<int>(interpolate_color[3]));
-				image.set(P.x, P.y, color);
+				TGAColor albedo = texture.get(uv.x, uv.y);
+				albedo.b = normal_dot_light * albedo.b;
+				albedo.r = normal_dot_light * albedo.r;
+				albedo.g = normal_dot_light * albedo.g;
+				albedo.a = normal_dot_light * albedo.a;
+				image.set(P.x, P.y, albedo);
 			}
 		}
 	}
 }
 
 // TGAImage image(width, height, TGAImage::GRAYSCALE);
-void triangle_grayScale(Vec3f* pts, Vec3f* normal, Vec2f* uv, float* zbuffer, TGAImage& image, TGAImage& texture) {
+void triangle_grayScale(Vec3f* pts, Vec3f* normal, Vec2f* texcoords, float* zbuffer, TGAImage& image, TGAImage& texture, float normal_dot_light) {
 	Vec2f bboxmin(std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
 	Vec2f bboxmax(-std::numeric_limits<float>::max(), -std::numeric_limits<float>::max());
 	Vec2f clamp(image.get_width() - 1, image.get_height() - 1);
@@ -183,18 +156,22 @@ void triangle_grayScale(Vec3f* pts, Vec3f* normal, Vec2f* uv, float* zbuffer, TG
 
 	for (P.x = bboxmin.x; P.x <= bboxmax.x; P.x++) {
 		for (P.y = bboxmin.y; P.y <= bboxmax.y; P.y++) {
-			//Vec3f bc_screen = barycentric(pts[0], pts[1], pts[2], P);
+			// bary centric
 			Vec3f bc_screen = barycentric(pts, P);
 			if (bc_screen.x < 0 || bc_screen.y < 0 || bc_screen.z < 0) continue;
+
+			// interpolation
 			P.z = 0;
+			Vec2f uv = { 0, 0 };
 			for (int i = 0; i < 3; i++) {
 				P.z += pts[i][2] * bc_screen[i];  // z轴插值
-				float uv_x = uv[i].x * textureWidth;
-				float uv_y = uv[i].y * textureHeight;
+				uv.x = texcoords[i].x * texture.get_width();
+				uv.y = texcoords[i].y * texture.get_height();
 			}
+
 			if (zbuffer[int(P.x + P.y * width)] < P.z) {
 				zbuffer[int(P.x + P.y * width)] = P.z;
-				TGAColor color(static_cast<int>(P.z * 255.0), 1);  // for grayscale
+				TGAColor color(static_cast<int>(P.z * 255.0) * normal_dot_light, normal_dot_light);  // for grayscale
 				image.set(P.x, P.y, color);
 			}
 		}
@@ -224,7 +201,7 @@ int main(int argc, char** argv) {
 	TGAImage texture(width, height, TGAImage::RGB);
 	texture.read_tga_file("../resources/texture/african_head_diffuse.tga");
 
-	Vec3f light_dir = Vec3f(1.0f, 0.0f, 0.0f);
+	Vec3f light_dir = Vec3f(0.0f, 0.0f, -1.0f);
 
 	for (int i = 0; i < model->nfaces(); i++) {
 		std::vector<int> face_idx = model->face(i);
@@ -243,13 +220,17 @@ int main(int argc, char** argv) {
 
 		Vec3f n = (world_coords[2] - world_coords[0]) ^ (world_coords[1] - world_coords[0]);
 		n.normalize();
-		float intensity = n * light_dir;
+		float normal_dot_light = n * light_dir;
 
 		if (image.get_bytespp() == TGAImage::GRAYSCALE) {
-			triangle_grayScale(screen_coords, normal, uv_coords, zbuffer, image, texture);
+			if (normal_dot_light > 0) {
+				triangle_grayScale(screen_coords, normal, uv_coords, zbuffer, image, texture, normal_dot_light);
+			}
 		}
 		else {
-			triangle_rgb(screen_coords, normal, uv_coords, zbuffer, image, texture);
+			if (normal_dot_light > 0) {
+				triangle_rgb(screen_coords, normal, uv_coords, zbuffer, image, texture, normal_dot_light);
+			}
 		}
 	}
 

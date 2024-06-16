@@ -135,7 +135,7 @@
     <ClCompile Include="..\common\geometry.cpp" />
     <ClCompile Include="..\common\model.cpp" />
     <ClCompile Include="..\common\tgaimage.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\geometry.h" />

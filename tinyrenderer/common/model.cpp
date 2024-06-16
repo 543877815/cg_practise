@@ -5,7 +5,7 @@
 #include <vector>
 #include "model.h"
 
-Model::Model(const char* filename) : verts_(), tex_coords(), norms_(), faces_(), normals_(), uv_() {
+Model::Model(const std::string& filename) : verts_(), tex_coords(), norms_(), faces_(), normals_(), uv_() {
 	std::ifstream in;
 	in.open(filename, std::ifstream::in);
 	if (in.fail()) return;
@@ -34,7 +34,7 @@ Model::Model(const char* filename) : verts_(), tex_coords(), norms_(), faces_(),
 		}
 		else if (!line.compare(0, 2, "f ")) {
 			std::vector<int> fv, fvt, fvn;
-			int v_idx, vt_idx, vn_idx;
+			int v_idx, vt_idx, vn_idx;  // index of vertices, texcoord, normal
 			iss >> trash;
 			while (iss >> v_idx >> trash >> vt_idx >> trash >> vn_idx) {
 				fv.push_back(--v_idx);
@@ -75,6 +75,11 @@ std::vector<int> Model::uv(int idx) {
 	return uv_[idx];
 }
 
+//Vec2i Model::uv(int idx) {
+//	std::vector<int> uv_idx = uv_[idx];
+//	return Vec2i(tex_coords[uv_idx[0]].x * diffusemap_.get_width(), tex_coords[uv_idx[0]].y * diffusemap_.get_height());
+//}
+
 Vec3f Model::vert(int i) {
 	return verts_[i];
 }
@@ -85,4 +90,18 @@ Vec2f Model::vTexCoords(int i) {
 
 Vec3f Model::vNormals(int i) {
 	return norms_[i];
+}
+
+void Model::load_texture(std::string& filename, const char* suffix, TGAImage& img) {
+	std::string texfile(filename);
+	size_t dot = texfile.find_last_of(".");
+	if (dot != std::string::npos) {
+		texfile = texfile.substr(0, dot) + std::string(suffix);
+		std::cerr << "texture file " << texfile << " loading " << (img.read_tga_file(texfile.c_str()) ? "ok" : "failed") << std::endl;
+		img.flip_vertically();
+	}
+}
+
+TGAColor Model::diffuse(Vec2i uv) {
+	return diffusemap_.get(uv.x, uv.y);
 }
