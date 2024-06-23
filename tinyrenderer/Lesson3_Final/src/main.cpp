@@ -99,7 +99,7 @@ void clamp(double& val, double min, double max) {
 	if (val < min) val = min;
 }
 
-void triangle_rgb(Vec3f* pts, Vec3f* normal, Vec2f* texcoords, float* zbuffer, TGAImage& image, TGAImage& texture, float normal_dot_light) {
+void triangle_rgb(Vec3f* pts, Vec3f* normal, Vec2f* texcoords, float* zbuffer, TGAImage& image, TGAImage& texture, float intensity) {
 	Vec2f bboxmin(std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
 	Vec2f bboxmax(std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
 	Vec2f clamp(image.get_width() - 1, image.get_height() - 1);
@@ -129,10 +129,10 @@ void triangle_rgb(Vec3f* pts, Vec3f* normal, Vec2f* texcoords, float* zbuffer, T
 			if (zbuffer[int(P.x + P.y * width)] < P.z) {
 				zbuffer[int(P.x + P.y * width)] = P.z;
 				TGAColor albedo = texture.get(uv.x, uv.y);
-				albedo.b = normal_dot_light * albedo.b;
-				albedo.r = normal_dot_light * albedo.r;
-				albedo.g = normal_dot_light * albedo.g;
-				albedo.a = normal_dot_light * albedo.a;
+				albedo.b = intensity * albedo.b;
+				albedo.r = intensity * albedo.r;
+				albedo.g = intensity * albedo.g;
+				albedo.a = intensity * albedo.a;
 				image.set(P.x, P.y, albedo);
 			}
 		}
@@ -140,7 +140,7 @@ void triangle_rgb(Vec3f* pts, Vec3f* normal, Vec2f* texcoords, float* zbuffer, T
 }
 
 // TGAImage image(width, height, TGAImage::GRAYSCALE);
-void triangle_grayScale(Vec3f* pts, Vec3f* normal, Vec2f* texcoords, float* zbuffer, TGAImage& image, TGAImage& texture, float normal_dot_light) {
+void triangle_grayScale(Vec3f* pts, Vec3f* normal, Vec2f* texcoords, float* zbuffer, TGAImage& image, TGAImage& texture, float intensity) {
 	Vec2f bboxmin(std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
 	Vec2f bboxmax(-std::numeric_limits<float>::max(), -std::numeric_limits<float>::max());
 	Vec2f clamp(image.get_width() - 1, image.get_height() - 1);
@@ -171,7 +171,7 @@ void triangle_grayScale(Vec3f* pts, Vec3f* normal, Vec2f* texcoords, float* zbuf
 
 			if (zbuffer[int(P.x + P.y * width)] < P.z) {
 				zbuffer[int(P.x + P.y * width)] = P.z;
-				TGAColor color(static_cast<int>(P.z * 255.0) * normal_dot_light, normal_dot_light);  // for grayscale
+				TGAColor color(static_cast<int>(P.z * 255.0) * intensity, intensity);  // for grayscale
 				image.set(P.x, P.y, color);
 			}
 		}
@@ -220,16 +220,16 @@ int main(int argc, char** argv) {
 
 		Vec3f n = (world_coords[2] - world_coords[0]) ^ (world_coords[1] - world_coords[0]);
 		n.normalize();
-		float normal_dot_light = n * light_dir;
+		float intensity = n * light_dir;
 
 		if (image.get_bytespp() == TGAImage::GRAYSCALE) {
-			if (normal_dot_light > 0) {
-				triangle_grayScale(screen_coords, normal, uv_coords, zbuffer, image, texture, normal_dot_light);
+			if (intensity > 0) {
+				triangle_grayScale(screen_coords, normal, uv_coords, zbuffer, image, texture, intensity);
 			}
 		}
 		else {
-			if (normal_dot_light > 0) {
-				triangle_rgb(screen_coords, normal, uv_coords, zbuffer, image, texture, normal_dot_light);
+			if (intensity > 0) {
+				triangle_rgb(screen_coords, normal, uv_coords, zbuffer, image, texture, intensity);
 			}
 		}
 	}

@@ -14,7 +14,7 @@ private:
 	std::vector<std::vector<int>> normals_;
 	std::vector<std::vector<int>> uv_;
 	TGAImage diffusemap_;
-	void load_texture(std::string& filename, const char* suffix, TGAImage& img);
+	void load_texture(const std::string& filename, const char* suffix, TGAImage& img);
 
 public:
 	Model(const std::string& filename);
@@ -28,6 +28,8 @@ public:
 	std::vector<int> face(int idx);
 	std::vector<int> nomral(int idx);
 	std::vector<int> uv(int idx);
+	int GetDiffuseMapHeight() { return diffusemap_.get_height(); }
+	int GetDiffuseMapWidth() { return diffusemap_.get_width(); }
 };
 
 #endif //__MODEL_H__

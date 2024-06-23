@@ -50,6 +50,8 @@ Model::Model(const std::string& filename) : verts_(), tex_coords(), norms_(), fa
 		" vt# " << tex_coords.size() <<
 		" vn# " << norms_.size() <<
 		" f# " << faces_.size() << std::endl;
+
+	load_texture(filename, "_diffuse.tga", diffusemap_);
 }
 
 Model::~Model() {
@@ -92,7 +94,7 @@ Vec3f Model::vNormals(int i) {
 	return norms_[i];
 }
 
-void Model::load_texture(std::string& filename, const char* suffix, TGAImage& img) {
+void Model::load_texture(const std::string& filename, const char* suffix, TGAImage& img) {
 	std::string texfile(filename);
 	size_t dot = texfile.find_last_of(".");
 	if (dot != std::string::npos) {
