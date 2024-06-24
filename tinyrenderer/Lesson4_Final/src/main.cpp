@@ -45,10 +45,10 @@ void triangle(Vec3i t0, Vec3i t1, Vec3i t2, Vec2i uv0, Vec2i uv1, Vec2i uv2, TGA
 	if (t0.y > t2.y) { std::swap(t0, t2); std::swap(uv0, uv2); }
 	if (t1.y > t2.y) { std::swap(t1, t2); std::swap(uv1, uv2); }
 
-	int total_height = t2.y - t0.y;
+	int total_height = t2.y - t0.y + 1;
 	for (int i = 0; i <= total_height; i++) {
-		bool second_half = i > t1.y - t0.y || t1.y == t0.y;
-		int segment_height = second_half ? t2.y - t1.y : t1.y - t0.y;
+		bool second_half = (i > t1.y - t0.y) || t1.y == t0.y;
+		int segment_height = second_half ? (t2.y - t1.y + 1) : (t1.y - t0.y + 1);
 		float alpha = (float)i / total_height;
 		float beta = (float)(i - (second_half ? t1.y - t0.y : 0)) / segment_height;//  be careful: with above conditions no division by zero here
 		Vec3i A = t0 + Vec3f(t2 - t0) * alpha;
@@ -64,7 +64,7 @@ void triangle(Vec3i t0, Vec3i t1, Vec3i t2, Vec2i uv0, Vec2i uv1, Vec2i uv2, TGA
 			if (zbuffer[idx] < P.z) {
 				zbuffer[idx] = P.z;
 				TGAColor color = model->diffuse(uvP);
-				image.set(P.x, P.y, TGAColor(color.r * intensity, color.g * intensity, color.b * intensity, color.a * intensity)); 
+				image.set(P.x, P.y, TGAColor(color.r * intensity, color.g * intensity, color.b * intensity, color.a * intensity));
 			}
 		}
 	}
