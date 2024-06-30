@@ -63,6 +63,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fibonacci", "Plug-and-play\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sh", "Plug-and-play\sh\sh.vcxproj", "{9D6E0BF2-BCD9-4B61-BEB0-F680CF3E238C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TinyRenderer_Lesson5", "tinyrenderer\TinyRenderer_Lesson5\TinyRenderer_Lesson5.vcxproj", "{34861591-DEFB-47A3-9865-AF9134D638C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -311,6 +313,14 @@ Global
 		{9D6E0BF2-BCD9-4B61-BEB0-F680CF3E238C}.Release|x64.Build.0 = Release|x64
 		{9D6E0BF2-BCD9-4B61-BEB0-F680CF3E238C}.Release|x86.ActiveCfg = Release|Win32
 		{9D6E0BF2-BCD9-4B61-BEB0-F680CF3E238C}.Release|x86.Build.0 = Release|Win32
+		{34861591-DEFB-47A3-9865-AF9134D638C5}.Debug|x64.ActiveCfg = Debug|x64
+		{34861591-DEFB-47A3-9865-AF9134D638C5}.Debug|x64.Build.0 = Debug|x64
+		{34861591-DEFB-47A3-9865-AF9134D638C5}.Debug|x86.ActiveCfg = Debug|Win32
+		{34861591-DEFB-47A3-9865-AF9134D638C5}.Debug|x86.Build.0 = Debug|Win32
+		{34861591-DEFB-47A3-9865-AF9134D638C5}.Release|x64.ActiveCfg = Release|x64
+		{34861591-DEFB-47A3-9865-AF9134D638C5}.Release|x64.Build.0 = Release|x64
+		{34861591-DEFB-47A3-9865-AF9134D638C5}.Release|x86.ActiveCfg = Release|Win32
+		{34861591-DEFB-47A3-9865-AF9134D638C5}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

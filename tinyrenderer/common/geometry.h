@@ -2,6 +2,8 @@
 #include <iostream>
 #include <cmath>
 
+class Matrix;
+
 template <class t> struct Vec2 {
 	t x, y;
 	Vec2<t>() : x(t()), y(t()) {}
@@ -25,6 +27,7 @@ template <class t> struct Vec3 {
 	t x, y, z;
 	Vec3<t>() : x(t()), y(t()), z(t()) { }
 	Vec3<t>(t _x, t _y, t _z) : x(_x), y(_y), z(_z) {}
+	Vec3<t>(Matrix m);
 	template <class u> Vec3<t>(const Vec3<u>& v);
 	Vec3<t>(const Vec3<t>& v) : x(t()), y(t()), z(t()) { *this = v; }
 	Vec3<t>& operator =(const Vec3<t>& v) {
@@ -51,9 +54,6 @@ typedef Vec2<int>   Vec2i;
 typedef Vec3<float> Vec3f;
 typedef Vec3<int>   Vec3i;
 
-template <> template <> Vec3<int>::Vec3(const Vec3<float>& v);
-template <> template <> Vec3<float>::Vec3(const Vec3<int>& v);
-
 template <class t>
 Vec3<t> cross(Vec3<t> v1, Vec3<t> v2) {
 	return Vec3<t>(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x);
@@ -78,6 +78,7 @@ class Matrix {
 	int rows, cols;
 public:
 	Matrix(int r = DEFAULT_ALLOC, int c = DEFAULT_ALLOC);
+	Matrix(Vec3f v);
 	inline int nrows();
 	inline int ncols();
 
