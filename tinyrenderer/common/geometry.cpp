@@ -66,6 +66,32 @@ Matrix Matrix::operator*(const Matrix& a) {
 	return result;
 }
 
+Vec4f Matrix::operator*(const Vec4f& a)
+{
+	assert(cols == a.size());
+	Vec4f result(0.0f, 0.0f, 0.0f, 0.0f);
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < cols; j++) {
+			result[i] += m[i][j] * a[j];
+		}
+	}
+	return result;
+}
+
+Vec2f Matrix::operator*(const Vec3f& a)
+{
+	assert(cols == a.size());
+	Vec2f result(0.0f, 0.0f);
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < cols; j++) {
+			result[i] += m[i][j] * a[j];
+		}
+	}
+	return result;
+}
+
+
+
 Matrix Matrix::transpose() {
 	Matrix result(cols, rows);
 	for (int i = 0; i < rows; i++)
@@ -124,4 +150,12 @@ std::ostream& operator<<(std::ostream& s, Matrix& m) {
 		s << "\n";
 	}
 	return s;
+}
+
+Vec4f embed(const Vec3f& v, float fill) {
+	Vec4f ret;
+	for (int i = 0; i <= 3; i++) {
+		ret[i] = (i < 3 ? v[i] : fill);
+	}
+	return ret;
 }

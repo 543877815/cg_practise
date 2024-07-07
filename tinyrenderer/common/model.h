@@ -24,6 +24,7 @@ public:
 	Vec3f vert(int i);
 	Vec2f vTexCoords(int i);
 	Vec3f vNormals(int i);
+	TGAColor diffuse(Vec2f uv);
 	TGAColor diffuse(Vec2i uv);
 	std::vector<int> face(int idx);
 	std::vector<int> nomral(int idx);
