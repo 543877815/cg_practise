@@ -110,8 +110,8 @@ inline void RenderObject<vT, iT>::SetMesh(std::vector<vT>* vertices, std::vector
 
 	glBindVertexArray(m_VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-
 	glBufferData(GL_ARRAY_BUFFER, m_vertices.size() * sizeof(vT), static_cast<void*> (m_vertices.data()), GL_STATIC_DRAW);
+
 	if (m_EBO != 0)
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);

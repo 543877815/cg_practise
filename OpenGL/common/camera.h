@@ -10,7 +10,11 @@ enum Camera_Movement {
 	LEFT,
 	RIGHT,
 	UP,
-	DOWN
+	DOWN,
+	YAW_DONW,
+	YAW_UP,
+	PITCH_LEFT,
+	PITCH_RIGHT
 };
 
 // Default camera values
@@ -32,8 +36,8 @@ public:
 	glm::vec3 m_right;
 	glm::vec3 m_worldUp;
 	// euler Angles
-	float n_yaw;
-	float n_pitch;
+	float m_yaw;
+	float m_pitch;
 	// camera options
 	float m_movementSpeed;
 	float m_mouseSensitivity;
@@ -48,8 +52,8 @@ public:
 	{
 		m_position = position;
 		m_worldUp = up;
-		n_yaw = yaw;
-		n_pitch = pitch;
+		m_yaw = yaw;
+		m_pitch = pitch;
 		updateCameraVectors();
 
 		m_viewMatrix = glm::lookAt(m_position, m_position + m_front, m_up);
@@ -60,8 +64,8 @@ public:
 	{
 		m_position = glm::vec3(posX, posY, posZ);
 		m_worldUp = glm::vec3(upX, upY, upZ);
-		n_yaw = yaw;
-		n_pitch = pitch;
+		m_yaw = yaw;
+		m_pitch = pitch;
 		updateCameraVectors();
 
 		m_viewMatrix = glm::lookAt(m_position, m_position + m_front, m_up);
@@ -76,10 +80,6 @@ public:
 	{
 		return m_viewMatrix;
 	}
-
-	/*glm::mat4& GetViewMatrix() {
-
-	}*/
 
 	// processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
 	void ProcessKeyboard(Camera_Movement direction, float deltaTime)
@@ -97,6 +97,15 @@ public:
 			m_position += m_up * velocity;
 		if (direction == DOWN)
 			m_position -= m_up * velocity;
+		if (direction == YAW_DONW || direction == YAW_UP) {
+			if (direction == YAW_DONW) {
+				m_yaw -= 0.001f;
+			}
+			if (direction == YAW_UP) {
+				m_yaw += 0.001f;
+			}
+			
+		}
 
 		m_viewMatrix = glm::lookAt(m_position, m_position + m_front, m_up);
 	}
@@ -107,16 +116,16 @@ public:
 		xoffset *= m_mouseSensitivity;
 		yoffset *= m_mouseSensitivity;
 
-		n_yaw += xoffset;
-		n_pitch += yoffset;
+		m_yaw += xoffset;
+		m_pitch += yoffset;
 
 		// make sure that when pitch is out of bounds, screen doesn't get flipped
 		if (constrainPitch)
 		{
-			if (n_pitch > 89.0f)
-				n_pitch = 89.0f;
-			if (n_pitch < -89.0f)
-				n_pitch = -89.0f;
+			if (m_pitch > 89.0f)
+				m_pitch = 89.0f;
+			if (m_pitch < -89.0f)
+				m_pitch = -89.0f;
 		}
 
 		// update Front, Right and Up Vectors using the updated Euler angles
@@ -139,9 +148,9 @@ private:
 	{
 		// calculate the new Front vector
 		glm::vec3 front;
-		front.x = cos(glm::radians(n_yaw)) * cos(glm::radians(n_pitch));
-		front.y = sin(glm::radians(n_pitch));
-		front.z = sin(glm::radians(n_yaw)) * cos(glm::radians(n_pitch));
+		front.x = cos(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
+		front.y = sin(glm::radians(m_pitch));
+		front.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
 		m_front = glm::normalize(front);
 		// also re-calculate the Right and Up vector
 		m_right = glm::normalize(glm::cross(m_front, m_worldUp));  // normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.

@@ -51,6 +51,9 @@
     <ClCompile Include="..\..\includes\imgui\imgui_demo.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
+    <ClCompile Include="..\common\vertexbuffer.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\includes\imgui\imgui_impl_glfw.h">
@@ -107,24 +110,39 @@
     <ClInclude Include="src\object_data.h">
       <Filter>hpp</Filter>
     </ClInclude>
+    <ClInclude Include="..\common\vertexbuffer.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\aabb.h">
+      <Filter>hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sphere_data.h">
+      <Filter>hpp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shader\axis.fs">
+    <None Include="shader\axis_fs.glsl">
       <Filter>shader</Filter>
     </None>
-    <None Include="shader\axis.vs">
+    <None Include="shader\axis_vs.glsl">
       <Filter>shader</Filter>
     </None>
-    <None Include="shader\box.fs">
+    <None Include="shader\box_fs.glsl">
       <Filter>shader</Filter>
     </None>
-    <None Include="shader\box.vs">
+    <None Include="shader\box_vs.glsl">
       <Filter>shader</Filter>
     </None>
-    <None Include="shader\rect.fs">
+    <None Include="shader\rect_fs.glsl">
       <Filter>shader</Filter>
     </None>
-    <None Include="shader\rect.vs">
+    <None Include="shader\rect_vs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="shader\sphere_vs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="shader\sphere_fs.glsl">
       <Filter>shader</Filter>
     </None>
   </ItemGroup>

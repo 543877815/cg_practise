@@ -1,8 +1,41 @@
 #pragma once
+
+#include "imgui_mgr.h"
 #include "render_object.h"
 
-class AxisObj : public RenderObject<float, uint32_t> {
+class GaussianSplatObj : public RenderObject<float, uint32_t> {
+public:
+	struct uniform {
+		glm::mat4 projection;
+		glm::mat4 view;
+		glm::vec2 focal;
+		glm::vec2 viewport;
+		glm::vec3 position;
+		glm::vec4 color;
+		glm::vec3 scale;
+		glm::vec4 rot;
+	};
 
+	GaussianSplatObj() {
+		SetUpData();
+		SetUpShader();
+	}
+
+private:
+	uniform m_uniform;
+	void SetUpData() {
+		m_uniform.color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+		m_uniform.position = glm::vec3(0.0f, 0.0f, 0.0f);
+		m_uniform.scale = glm::vec3(-2.974, -5.631, -3.093);
+		m_uniform.rot = glm::vec4(-0.502, -0.647, -1.132, 7.454);
+	}
+
+	void SetUpShader() override {
+		m_shader = std::make_unique<Shader>("./shader/axis_vs.glsl", "./shader/axis_fs.glsl");
+	}
+};
+
+class AxisObj : public RenderObject<float, uint32_t> {
 public:
 
 	struct Uniform {
@@ -17,7 +50,6 @@ public:
 	AxisObj() {
 		SetUpData();
 		SetUpShader();
-		SetUpTexture();
 	}
 
 	void Draw(const Uniform& uniform) {
@@ -31,11 +63,8 @@ public:
 	~AxisObj() = default;
 
 private:
-
-	void SetUpTexture(int num = 0) override {}
-
 	void SetUpShader() override {
-		m_shader = std::make_unique<Shader>("./shader/axis.vs", "./shader/axis.fs");
+		m_shader = std::make_unique<Shader>("./shader/axis_vs.glsl", "./shader/axis_fs.glsl");
 	}
 
 	void SetUpData() override {
@@ -45,12 +74,12 @@ private:
 		};
 
 		std::vector<float>vertices = std::vector<float>{
-			-10.0, 0.0,   0.0, 1.0, 0.0, 0.0,
-			 10.0, 0.0 ,  0.0, 1.0, 0.0, 0.0,
-			 0.0,  10.0,  0.0, 0.0, 1.0, 0.0,
-			 0.0, -10.0,  0.0, 0.0, 1.0, 0.0,
-			 0.0,  0.0,  10.0, 0.0, 0.0, 1.0,
-			 0.0,  0.0, -10.0, 0.0, 0.0, 1.0,
+			-100.0, 0.0,     0.0, 1.0, 0.0, 0.0,
+			 100.0, 0.0 ,    0.0, 1.0, 0.0, 0.0,
+			 0.0,   100.0,  0.0, 0.0, 1.0, 0.0,
+			 0.0,  -100.0,  0.0, 0.0, 1.0, 0.0,
+			 0.0,   0.0,   100.0, 0.0, 0.0, 1.0,
+			 0.0,   0.0,  -100.0, 0.0, 0.0, 1.0,
 		};
 
 		std::vector<uint32_t> indices = std::vector<uint32_t>{
@@ -62,7 +91,6 @@ private:
 		SetMesh(&vertices, &vertex_info, &indices);
 		SetPrimitive(GL_LINES);
 	}
-
 };
 
 class RectangleObj : public RenderObject<float, uint32_t> {
@@ -81,11 +109,14 @@ public:
 	}
 
 private:
+	void SetUpGLStatus() {
+		glDisable(GL_DEPTH_TEST);
+	}
 
 	void SetUpTexture(int num = 0) override {}
 
 	void SetUpShader() override {
-		m_shader = std::make_unique<Shader>("./shader/rect.vs", "./shader/rect.fs");
+		m_shader = std::make_unique<Shader>("./shader/rect_vs.glsl", "./shader/rect_fs.glsl");
 	}
 
 	void SetUpData() override {
@@ -112,6 +143,7 @@ private:
 class BoxObj : public RenderObject<float, uint32_t> {
 
 public:
+	int a = 1;
 	struct Uniform {
 		glm::mat4 projection;
 		glm::mat4 view;
@@ -128,6 +160,8 @@ public:
 	}
 
 	void Draw(const Uniform& uniform) {
+		SetUpGLStatus();
+
 		m_shader->use();
 		m_shader->setMat4("projection", uniform.projection);
 		m_shader->setMat4("view", uniform.view);
@@ -138,7 +172,14 @@ public:
 		RenderObject::Draw();
 	}
 
+	void ImGuiCallback() {
+		ImGui::SliderInt("#test", &a, 0, 5);
+	}
+
 private:
+	void SetUpGLStatus() {
+		glEnable(GL_DEPTH_TEST);
+	}
 
 	void SetUpTexture(int num = 0) override {
 		m_textures = std::make_unique<Texture>(num);
@@ -154,7 +195,7 @@ private:
 	}
 
 	void SetUpShader() override {
-		m_shader = std::make_unique<Shader>("./shader/box.vs", "./shader/box.fs");
+		m_shader = std::make_unique<Shader>("./shader/box_vs.glsl", "./shader/box_fs.glsl");
 	}
 
 	void SetUpData() override {
@@ -211,7 +252,3 @@ private:
 	}
 };
 
-void getBoxData(std::vector<float>& vertices, std::vector<VertexInfo>& vertex_info)
-{
-
-}

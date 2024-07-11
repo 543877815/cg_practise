@@ -7,6 +7,7 @@
 #include <imgui/imgui.h>
 #include <imgui/imgui_impl_glfw.h>
 #include <imgui/imgui_impl_opengl3.h>
+#include <functional>
 #include <mutex>
 
 class ImGuiManager {
@@ -25,14 +26,22 @@ public:
 		return instance;
 	}
 
-	void Render() {
+	float* GetClearColor() { return m_clear_color; }
+
+	void Render(std::vector <std::function<void()>>& func) {
+
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 		ImGui::Begin("IMGUI CLI");
 
 		ImGui::Text("Hello, ImGui with GLFW and OpenGL!");
+		ImGui::SetNextItemWidth(150);
+		ImGui::ColorPicker4("Background", m_clear_color, ImGuiColorEditFlags_None | ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_NoAlpha);
 
+		for (auto f : func) {
+			f();
+		}
 		ImGui::End();
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -41,6 +50,7 @@ public:
 private:
 	static ImGuiManager* instance;
 	GLFWwindow* m_window = nullptr;
+	float m_clear_color[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 	explicit ImGuiManager(GLFWwindow* window) : m_window(window) {
 		IMGUI_CHECKVERSION();
