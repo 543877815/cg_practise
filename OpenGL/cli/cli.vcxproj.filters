@@ -22,6 +22,12 @@
     <Filter Include="common">
       <UniqueIdentifier>{64e28e2f-c8c9-4cda-9bf2-afa78e40d425}</UniqueIdentifier>
     </Filter>
+    <Filter Include="config">
+      <UniqueIdentifier>{17cad509-62ee-4850-830f-d1a3d6448948}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render_object">
+      <UniqueIdentifier>{948e6f1a-71d0-482a-aba7-e15cd32c50ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -98,7 +104,7 @@
     <ClInclude Include="..\common\render_object.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\common\shader.h">
+    <ClInclude Include="..\common\shader_s.h">
       <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\includes\stb\stb_image.h">
@@ -107,16 +113,34 @@
     <ClInclude Include="..\common\texture.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="src\object_data.h">
-      <Filter>hpp</Filter>
-    </ClInclude>
     <ClInclude Include="..\common\vertexbuffer.h">
       <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="src\aabb.h">
       <Filter>hpp</Filter>
     </ClInclude>
-    <ClInclude Include="src\sphere_data.h">
+    <ClInclude Include="src\axis_obj.h">
+      <Filter>render_object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sphere_obj.h">
+      <Filter>render_object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\aabb_obj.h">
+      <Filter>render_object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_utils.h">
+      <Filter>render_object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\box3d_obj.h">
+      <Filter>render_object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ellipsoid_obj.h">
+      <Filter>render_object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rectangle2d_obj.h">
+      <Filter>render_object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\config.h">
       <Filter>hpp</Filter>
     </ClInclude>
   </ItemGroup>
@@ -144,6 +168,15 @@
     </None>
     <None Include="shader\sphere_fs.glsl">
       <Filter>shader</Filter>
+    </None>
+    <None Include="shader\aabb_fs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="shader\aabb_vs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="config\box.json">
+      <Filter>config</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

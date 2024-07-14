@@ -1,9 +1,7 @@
 #pragma once
-
 #include <glad/glad.h>
 #include <vector>
 #include <string>
-
 
 struct VertexInfo {
 	VertexInfo(const char* name, uint32_t location, uint32_t count, uint32_t type, bool normalized, uint32_t offset, uint32_t stride) :
@@ -37,10 +35,10 @@ private:
 	virtual void SetUpShader() {};
 	virtual void SetUpTexture(int num = 0) {};
 
-public:
+protected:
 	std::unique_ptr<Shader> m_shader = nullptr;
 	std::unique_ptr<Texture> m_textures = nullptr;
-	std::vector<size_t> m_textureIdx;
+	std::vector<size_t> m_textureIdx{};
 
 	RenderObject() {}
 	~RenderObject();
@@ -110,7 +108,7 @@ inline void RenderObject<vT, iT>::SetMesh(std::vector<vT>* vertices, std::vector
 
 	glBindVertexArray(m_VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-	glBufferData(GL_ARRAY_BUFFER, m_vertices.size() * sizeof(vT), static_cast<void*> (m_vertices.data()), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, m_vertices.size() * sizeof(vT), static_cast<void*>(m_vertices.data()), GL_STATIC_DRAW);
 
 	if (m_EBO != 0)
 	{

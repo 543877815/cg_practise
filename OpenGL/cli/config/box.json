@@ -1,0 +1,8 @@
+[
+  {
+    "object": "box",
+    "uniform": [ "projection", "view", "model" ],
+    "vertex_shader": "./shader/box_vs.glsl",
+    "fragment_shader": "./shader/box_fs.glsl"
+  }
+]

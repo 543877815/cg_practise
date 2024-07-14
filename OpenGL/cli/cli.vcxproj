@@ -44,16 +44,25 @@
     <ClInclude Include="..\common\camera.h" />
     <ClInclude Include="..\common\glfw_mgr.h" />
     <ClInclude Include="..\common\render_object.h" />
-    <ClInclude Include="..\common\shader.h" />
+    <ClInclude Include="..\common\shader_s.h" />
     <ClInclude Include="..\common\texture.h" />
     <ClInclude Include="..\common\vertexbuffer.h" />
     <ClInclude Include="src\aabb.h" />
+    <ClInclude Include="src\aabb_obj.h" />
+    <ClInclude Include="src\box3d_obj.h" />
     <ClInclude Include="src\callback.h" />
-    <ClInclude Include="src\object_data.h" />
+    <ClInclude Include="src\config.h" />
+    <ClInclude Include="src\ellipsoid_obj.h" />
+    <ClInclude Include="src\axis_obj.h" />
     <ClInclude Include="src\imgui_mgr.h" />
-    <ClInclude Include="src\sphere_data.h" />
+    <ClInclude Include="src\rectangle2d_obj.h" />
+    <ClInclude Include="src\render_utils.h" />
+    <ClInclude Include="src\sphere_obj.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="config\box.json" />
+    <None Include="shader\aabb_fs.glsl" />
+    <None Include="shader\aabb_vs.glsl" />
     <None Include="shader\axis_fs.glsl" />
     <None Include="shader\axis_vs.glsl" />
     <None Include="shader\box_fs.glsl" />

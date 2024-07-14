@@ -2,16 +2,15 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
 #include <imgui/imgui.h>
 #include <imgui/imgui_impl_glfw.h>
 #include <imgui/imgui_impl_opengl3.h>
 #include <functional>
 // common
-#include "shader.h"
+#include "shader_s.h"
+#include "shader_c.h"
 #include "camera.h"
 #include "texture.h"
 #include "glfw_mgr.h"
@@ -20,20 +19,16 @@
 
 // custom
 #include "callback.h"
-#include "object_data.h"
-#include "sphere_data.h"
+#include "axis_obj.h"
+#include "sphere_obj.h"
 
+#include "rapidjson/rapidjson.h"
 // screen
 const int SCR_WIDTH = 800;
 const int SCR_HEIGHT = 600;
 
 // camera
 extern Camera camera;
-
-
-void func1() {
-	std::cout << "Function 1 called" << std::endl;
-}
 
 int main() {
 
@@ -56,11 +51,11 @@ int main() {
 
 	/****************** case for rect  **********************/
 	// https://learnopengl.com/code_viewer_gh.php?code=src/1.getting_started/2.2.hello_triangle_indexed/hello_triangle_indexed.cpp
-	RectangleObj rect_obj = RectangleObj();
+	//RectangleObj rect_obj = RectangleObj();
 
 	/*************** case for 3D box  ********************/
 	// https://learnopengl.com/code_viewer_gh.php?code=src/1.getting_started/7.4.camera_class/camera_class.cpp
-	BoxObj box_obj = BoxObj();
+	//BoxObj box_obj = BoxObj();
 
 	/******************* sphere ****************************/
 	SphereObj sphere_obj = SphereObj();
@@ -95,7 +90,7 @@ int main() {
 		view = camera.GetViewMatrix();
 		projection = glm::perspective(glm::radians(camera.m_zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 
-		//axis_obj.Draw({ projection, view, model });
+		axis_obj.Draw({ projection, view, model });
 		//box_obj.Draw({ projection, view, model });
 		//rect_obj.Draw();
 		sphere_obj.Draw({ projection, view, model });
