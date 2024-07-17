@@ -1,4 +1,6 @@
-#include "render_utils.h"
+#pragma once
+
+#include "common.h"
 
 class RectangleObj : public RenderObject<float, uint32_t> {
 public:

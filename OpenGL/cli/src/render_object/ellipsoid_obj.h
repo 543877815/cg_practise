@@ -1,4 +1,5 @@
-#include "render_utils.h"
+#pragma once
+#include "common.h"
 #include "aabb.h"
 
 class EllipsoidObj : public RenderObject<glm::vec3, uint32_t> {

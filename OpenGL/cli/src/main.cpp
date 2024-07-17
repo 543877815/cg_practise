@@ -4,9 +4,6 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <imgui/imgui.h>
-#include <imgui/imgui_impl_glfw.h>
-#include <imgui/imgui_impl_opengl3.h>
 #include <functional>
 // common
 #include "shader_s.h"
@@ -19,10 +16,11 @@
 
 // custom
 #include "callback.h"
-#include "axis_obj.h"
-#include "sphere_obj.h"
+#include "render_object/axis_obj.h"
+#include "render_object/sphere_obj.h"
+#include "config_parser.h"
+#include "render_object/register_obj.h"
 
-#include "rapidjson/rapidjson.h"
 // screen
 const int SCR_WIDTH = 800;
 const int SCR_HEIGHT = 600;
@@ -39,6 +37,21 @@ int main() {
 	glfw_instance->SetMouseCallback(mouseCallback);
 	glfw_instance->SetScrollCallback(scrollCallback);
 	glfw_instance->SetKeyCallback(keyCallback);
+
+	// register
+	InitRegisterObj();
+	auto register_obj = GetRegisterObj();
+
+	// configuration
+	std::vector<JsonInfo> obj_infos;
+	ParseCameraConfig("./config/sphere.json", obj_infos);
+
+	// init render object
+	std::vector<RenderObjectBase> render_objs;
+	for (size_t i = 0; i < obj_infos.size(); i++) {
+		auto& obj = obj_infos[i];
+		render_objs.emplace_back(register_obj[obj.obj_type]);
+	}
 
 	// window
 	GLFWwindow* window = glfw_instance->GetWindow();

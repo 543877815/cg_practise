@@ -36,6 +36,11 @@ public:
 		return m_maxCorner;
 	}
 
+	void reset() {
+		m_minCorner = Point{ FLT_MAX, FLT_MAX, FLT_MAX };
+		m_maxCorner = Point{ FLT_MIN, FLT_MIN, FLT_MIN };
+	}
+
 	// Expand the AABB to include a given point
 	void expand(const Point& point) {
 		m_minCorner.x = (std::min)(m_minCorner.x, point.x);

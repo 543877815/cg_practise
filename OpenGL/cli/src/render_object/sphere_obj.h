@@ -3,7 +3,7 @@
 #include <cmath>
 #include <chrono>
 
-#include "render_utils.h"
+#include "common.h"
 #include "aabb_obj.h"
 
 #ifndef M_PI
@@ -14,9 +14,8 @@ class SphereObj : public RenderObject<glm::vec3, uint32_t> {
 private:
 	int m_number = 10000;
 	float m_radius = 1.0;
-	std::shared_ptr<AABBObj> m_aabb_obj;
+	std::shared_ptr<AABBObj> m_aabb_obj = nullptr;
 
-public:
 	struct Uniform {
 		glm::mat4 projection;
 		glm::mat4 view;
@@ -26,10 +25,15 @@ public:
 			: projection(projection), view(view), model(model) {}
 	};
 
+	struct ImguiParams {
+		bool show_aabb = true;
+	} m_imgui_params;
+
+public:
 	SphereObj() {
-		m_aabb_obj = std::make_shared<AABBObj>();
 		SetUpData();
 		SetUpShader();
+		SetUpAABB();
 	}
 
 	void Draw(const Uniform& uniform) {
@@ -38,12 +42,20 @@ public:
 		m_shader->setMat4("view", uniform.view);
 		m_shader->setMat4("model", uniform.model);
 		RenderObject::Draw();
+
+		if (m_imgui_params.show_aabb) {
+			m_aabb_obj->Draw({ uniform.projection, uniform.view, uniform.model });
+		}
 	}
 
 	void ImGuiCallback() {
 		bool changed = false;
 		changed |= ImGui::SliderInt("number", &m_number, 0, 100000);
-		changed |= ImGui::SliderFloat("radius", &m_radius, 0.0, 5.0);
+		if (changed |= ImGui::SliderFloat("radius", &m_radius, 0.0, 5.0)) {
+			SetUpAABB();
+		}
+
+		ImGui::Checkbox("show aabb", &m_imgui_params.show_aabb);
 		if (changed) SetUpData();
 	}
 
@@ -67,7 +79,6 @@ private:
 			float y = sin(phi) * sin(theta) * m_radius;
 			float z = cos(phi) * m_radius;
 			vertices.emplace_back(glm::vec3(x, y, z));
-			m_aabb_obj->GetAABB()->expand({ x, y, z });
 		}
 
 		std::vector<VertexInfo> vertex_info = std::vector<VertexInfo>{
@@ -76,6 +87,13 @@ private:
 
 		SetMesh(&vertices, &vertex_info);
 		SetPrimitive(GL_POINTS);
+	}
+
+	void SetUpAABB() {
+		if (!m_aabb_obj) m_aabb_obj = std::make_shared<AABBObj>();
+		m_aabb_obj->GetAABB()->reset();
+		m_aabb_obj->GetAABB()->expand({ m_radius, m_radius, m_radius });
+		m_aabb_obj->GetAABB()->expand({ -m_radius, -m_radius, -m_radius });
 	}
 };
 
