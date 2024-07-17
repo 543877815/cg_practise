@@ -1,5 +1,5 @@
-#include "render_utils.h"
-
+#pragma once
+#include "common.h"
 class BoxObj : public RenderObject<float, uint32_t> {
 public:
 	int a = 1;

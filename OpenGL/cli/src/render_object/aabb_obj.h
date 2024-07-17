@@ -1,5 +1,5 @@
 #pragma once
-#include "render_utils.h"
+#include "common.h"
 #include "aabb.h"
 
 class AABBObj : public RenderObject<glm::vec3, uint32_t> {
@@ -11,16 +11,18 @@ private:
 		Uniform() = default;
 		Uniform(const glm::mat4& projection, const glm::mat4& view, const glm::mat4& model) : projection(projection), view(view), model(model) {}
 	};
-	std::vector<glm::vec3> m_vertices{};
+	std::vector<glm::vec3> m_vertices = std::vector<glm::vec3>(8, glm::vec3(0.0f));
 	std::shared_ptr<AABB> m_aabb = std::make_shared<AABB>();
 
 public:
-	AABBObj() {}
+	AABBObj() {
+		SetUpShader();
+	}
+
 	AABBObj(std::shared_ptr<AABB> aabb) : m_aabb(aabb) {
-		m_vertices.resize(8);
 		SetUpVertices();
 		SetUpData();
-		SetUpShader();
+		AABBObj::AABBObj();
 	}
 
 	std::shared_ptr<AABB> GetAABB() {
@@ -41,6 +43,7 @@ public:
 	}
 
 	void Draw(const Uniform& uniform) {
+		SetUpVertices();
 		SetUpData();
 
 		m_shader->use();
@@ -49,6 +52,7 @@ public:
 		m_shader->setMat4("model", uniform.model);
 		RenderObject::Draw();
 	}
+
 private:
 	void SetUpShader() override {
 		m_shader = std::make_unique<Shader>("./shader/aabb_vs.glsl", "./shader/aabb_fs.glsl");
