@@ -1,5 +1,5 @@
 #pragma once
-#include "render_object/common.h"
+#include "common.h"
 class AxisObj : public RenderObject<float, uint32_t> {
 private:
 	struct Uniform {
