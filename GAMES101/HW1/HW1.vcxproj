@@ -73,6 +73,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <CopyLocalDeploymentContent>false</CopyLocalDeploymentContent>
     <CopyCppRuntimeToOutputDir>false</CopyCppRuntimeToOutputDir>
+    <IntDir>$(SolutionDir)bin\intermediates\$(platform)\$(configuration)\$(Projectname)\</IntDir>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IntDir>$(SolutionDir)bin\intermediates\$(platform)\$(configuration)\</IntDir>

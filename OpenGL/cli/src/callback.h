@@ -124,8 +124,8 @@ void processViewCamera(GLFWwindow* window, Camera& camera, const int& SCR_WIDTH,
 	static glm::vec3 WorldUp = glm::vec3(0.0f, 1.0f, 0.0f);
 	static glm::vec3 Right = glm::normalize(glm::cross(Front, WorldUp));
 	static glm::vec3 Up = glm::normalize(glm::cross(Right, Front));
-	static float yaw = 0.0f; // ³õÊ¼·½Î»½Ç
-	static float pitch = 0.0f; // ³õÊ¼¼«½Ç
+	static float yaw = 0.0f; // åˆå§‹æ–¹ä½è§’
+	static float pitch = 0.0f; // åˆå§‹æè§’
 
 	// KEY
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) glfwSetWindowShouldClose(window, true);

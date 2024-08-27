@@ -2,6 +2,8 @@
 #include <glad/glad.h>
 #include <vector>
 #include <string>
+#include "shader_s.h"
+#include "texture.h"
 
 struct VertexInfo {
 	VertexInfo(const char* name, uint32_t location, uint32_t count, uint32_t type, bool normalized, uint32_t offset, uint32_t stride) :
@@ -17,8 +19,18 @@ struct VertexInfo {
 
 };
 
+class RenderObjectBase {
+public:
+	virtual ~RenderObjectBase() = default;
+	virtual void DrawObj(const std::unordered_map<std::string, std::any>& uniform) = 0;
+	virtual void ImGuiCallback() {};
+
+protected:
+	virtual void Draw() = 0;
+};
+
 template<typename vT, typename iT = uint32_t>
-class RenderObject {
+class RenderObject : public RenderObjectBase {
 private:
 	uint32_t m_VAO = 0;
 	uint32_t m_VBO = 0;
@@ -34,6 +46,7 @@ private:
 	virtual void SetUpData() {};
 	virtual void SetUpShader() {};
 	virtual void SetUpTexture(int num = 0) {};
+	virtual void DrawObj(const std::unordered_map<std::string, std::any>& uniform) {};
 
 protected:
 	std::unique_ptr<Shader> m_shader = nullptr;
@@ -53,6 +66,7 @@ protected:
 	uint32_t GetEBO() { return m_EBO; }
 	void SetMesh(std::vector<vT>* vertices = nullptr, std::vector<VertexInfo>* infos = nullptr, std::vector<iT>* indices = nullptr);
 	void Draw();
+
 };
 
 template<typename vT, typename iT>

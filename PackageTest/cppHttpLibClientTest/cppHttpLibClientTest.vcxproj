@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -18,80 +18,12 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\includes\imgui\imgui.cpp" />
-    <ClCompile Include="..\..\includes\imgui\imgui_demo.cpp" />
-    <ClCompile Include="..\..\includes\imgui\imgui_draw.cpp" />
-    <ClCompile Include="..\..\includes\imgui\imgui_impl_glfw.cpp" />
-    <ClCompile Include="..\..\includes\imgui\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="..\..\includes\imgui\imgui_tables.cpp" />
-    <ClCompile Include="..\..\includes\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="..\common\glad.c" />
-    <ClCompile Include="..\common\vertexbuffer.cpp" />
-    <ClCompile Include="src\config_parser.cpp" />
-    <ClCompile Include="src\imgui_mgr.cpp" />
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\render_objs\register_obj.cpp" />
-    <ClCompile Include="src\render_obj_mgr.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\includes\imgui\imconfig.h" />
-    <ClInclude Include="..\..\includes\imgui\imgui.h" />
-    <ClInclude Include="..\..\includes\imgui\imgui_impl_glfw.h" />
-    <ClInclude Include="..\..\includes\imgui\imgui_impl_opengl3.h" />
-    <ClInclude Include="..\..\includes\imgui\imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="..\..\includes\imgui\imgui_internal.h" />
-    <ClInclude Include="..\..\includes\imgui\imstb_rectpack.h" />
-    <ClInclude Include="..\..\includes\imgui\imstb_textedit.h" />
-    <ClInclude Include="..\..\includes\imgui\imstb_truetype.h" />
-    <ClInclude Include="..\..\includes\stb\stb_image.h" />
-    <ClInclude Include="..\common\camera.h" />
-    <ClInclude Include="..\common\glfw_mgr.h" />
-    <ClInclude Include="..\common\render_object.h" />
-    <ClInclude Include="..\common\shader_c.h" />
-    <ClInclude Include="..\common\shader_s.h" />
-    <ClInclude Include="..\common\texture.h" />
-    <ClInclude Include="..\common\vertexbuffer.h" />
-    <ClInclude Include="src\aabb.h" />
-    <ClInclude Include="src\callback.h" />
-    <ClInclude Include="src\config_parser.h" />
-    <ClInclude Include="src\imgui_mgr.h" />
-    <ClInclude Include="src\render_objs\aabb_obj.h" />
-    <ClInclude Include="src\render_objs\axis_obj.h" />
-    <ClInclude Include="src\render_objs\box3d_obj.h" />
-    <ClInclude Include="src\render_objs\common.h" />
-    <ClInclude Include="src\render_objs\ellipsoid_obj.h" />
-    <ClInclude Include="src\render_objs\rectangle2d_obj.h" />
-    <ClInclude Include="src\render_objs\register_obj.h" />
-    <ClInclude Include="src\render_objs\sphere_obj.h" />
-    <ClInclude Include="src\render_obj_mgr.h" />
-    <ClInclude Include="src\thread_pool.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="config\box.json" />
-    <None Include="config\sphere.json" />
-    <None Include="shader\aabb_fs.glsl" />
-    <None Include="shader\aabb_vs.glsl" />
-    <None Include="shader\axis_fs.glsl" />
-    <None Include="shader\axis_vs.glsl" />
-    <None Include="shader\box_fs.glsl" />
-    <None Include="shader\box_vs.glsl" />
-    <None Include="shader\rect_fs.glsl" />
-    <None Include="shader\rect_vs.glsl" />
-    <None Include="shader\sphere_fs.glsl" />
-    <None Include="shader\sphere_vs.glsl" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="textures\awesomeface.png" />
-    <Image Include="textures\container.jpg" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{a48fd54f-c5f7-4154-9787-a4a3b7b7bfc4}</ProjectGuid>
-    <RootNamespace>cli</RootNamespace>
+    <ProjectGuid>{e86d5130-f45a-4be8-988c-c66e8b4d5315}</ProjectGuid>
+    <RootNamespace>cppHttpLibClientTest</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>openGL-cli</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -127,22 +59,25 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\PropertySheet.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\PropertySheet.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\PropertySheet.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\PropertySheet.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\intermediates\$(platform)\$(configuration)\$(Projectname)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\intermediates\$(platform)\$(configuration)\$(Projectname)\</IntDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -177,12 +112,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)includes;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp.lib;freetype.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -193,6 +127,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)includes;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -201,6 +136,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
