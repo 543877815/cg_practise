@@ -6,9 +6,10 @@
 #include <mutex>
 #include <iostream>
 void DefaultFramebufferSizeCallback(GLFWwindow* window, int width, int height) {
-	// 设置视口大小以匹配新窗口尺寸
+	// 璁剧疆瑙嗗彛澶у皬浠ュ尮閰嶆柊绐楀彛灏哄
 	glViewport(0, 0, width, height);
 }
+
 
 void DefaultMouseCallback(GLFWwindow* window, double xpos, double ypos) {
 	std::cout << "Mouse position: (" << xpos << ", " << ypos << ")" << std::endl;

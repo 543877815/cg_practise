@@ -60,17 +60,38 @@
     <ClCompile Include="..\common\vertexbuffer.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="src\render_obj_mgr.cpp">
-      <Filter>render_objs</Filter>
-    </ClCompile>
-    <ClCompile Include="src\render_objs\register_obj.cpp">
-      <Filter>render_objs</Filter>
-    </ClCompile>
     <ClCompile Include="src\imgui_mgr.cpp">
       <Filter>cpp</Filter>
     </ClCompile>
     <ClCompile Include="src\config_parser.cpp">
       <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\texture.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render_objs\aabb_obj.cpp">
+      <Filter>render_objs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render_objs\axis_obj.cpp">
+      <Filter>render_objs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render_objs\register_render_obj.cpp">
+      <Filter>render_objs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render_obj_mgr.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render_objs\box_obj.cpp">
+      <Filter>render_objs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render_objs\rectangle2d_obj.cpp">
+      <Filter>render_objs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render_objs\sphere_obj.cpp">
+      <Filter>render_objs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render_objs\ellipsoid_obj.cpp">
+      <Filter>render_objs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -110,9 +131,6 @@
     <ClInclude Include="..\common\glfw_mgr.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\common\render_object.h">
-      <Filter>common</Filter>
-    </ClInclude>
     <ClInclude Include="..\common\shader_s.h">
       <Filter>common</Filter>
     </ClInclude>
@@ -137,16 +155,13 @@
     <ClInclude Include="src\thread_pool.h">
       <Filter>hpp</Filter>
     </ClInclude>
-    <ClInclude Include="src\render_obj_mgr.h">
-      <Filter>render_objs</Filter>
-    </ClInclude>
     <ClInclude Include="src\render_objs\aabb_obj.h">
       <Filter>render_objs</Filter>
     </ClInclude>
     <ClInclude Include="src\render_objs\axis_obj.h">
       <Filter>render_objs</Filter>
     </ClInclude>
-    <ClInclude Include="src\render_objs\box3d_obj.h">
+    <ClInclude Include="src\render_objs\box_obj.h">
       <Filter>render_objs</Filter>
     </ClInclude>
     <ClInclude Include="src\render_objs\common.h">
@@ -158,7 +173,7 @@
     <ClInclude Include="src\render_objs\rectangle2d_obj.h">
       <Filter>render_objs</Filter>
     </ClInclude>
-    <ClInclude Include="src\render_objs\register_obj.h">
+    <ClInclude Include="src\render_objs\register_render_obj.h">
       <Filter>render_objs</Filter>
     </ClInclude>
     <ClInclude Include="src\render_objs\sphere_obj.h">
@@ -166,6 +181,12 @@
     </ClInclude>
     <ClInclude Include="src\imgui_mgr.h">
       <Filter>hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_obj_mgr.h">
+      <Filter>hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_objs\render_obj.h">
+      <Filter>render_objs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -203,6 +224,12 @@
       <Filter>config</Filter>
     </None>
     <None Include="config\sphere.json">
+      <Filter>config</Filter>
+    </None>
+    <None Include="config\rectangle2d.json">
+      <Filter>config</Filter>
+    </None>
+    <None Include="config\ellipsoid.json">
       <Filter>config</Filter>
     </None>
   </ItemGroup>

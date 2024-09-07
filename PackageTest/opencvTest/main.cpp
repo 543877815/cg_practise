@@ -2,29 +2,30 @@
 #include <iostream>
 
 int main() {
-	// ¶ÁÈ¡Í¼Æ¬
+	// è¯»å–å›¾ç‰‡
 	cv::Mat image;
 	image = cv::imread("test.jpg", cv::IMREAD_COLOR);
 
-	// ¼ì²éÍ¼Æ¬ÊÇ·ñÕıÈ·¼ÓÔØ
+	// æ£€æŸ¥å›¾ç‰‡æ˜¯å¦æ­£ç¡®åŠ è½½
 	if (image.empty()) {
-		std::cerr << "´íÎó£ºÎŞ·¨¼ÓÔØÍ¼Æ¬" << std::endl;
+		std::cerr << "é”™è¯¯ï¼šæ— æ³•åŠ è½½å›¾ç‰‡" << std::endl;
 		return -1;
 	}
 
-	// ×ª»»Îª»Ò¶ÈÍ¼
+	// è½¬æ¢ä¸ºç°åº¦å›¾
 	cv::Mat gray_image;
 	cv::cvtColor(image, gray_image, cv::COLOR_BGR2GRAY);
 
-	// ÏÔÊ¾Í¼Æ¬
+	// æ˜¾ç¤ºå›¾ç‰‡
 	cv::namedWindow("Original Image", cv::WINDOW_AUTOSIZE);
 	cv::imshow("Original Image", image);
 
 	cv::namedWindow("Gray Image", cv::WINDOW_AUTOSIZE);
 	cv::imshow("Gray Image", gray_image);
 
-	// µÈ´ıÓÃ»§°´¼ü£¬ÔÙ¹Ø±Õ´°¿Ú
+	// ç­‰å¾…ç”¨æˆ·æŒ‰é”®ï¼Œå†å…³é—­çª—å£
 	cv::waitKey(0);
 
 	return 0;
 }
+

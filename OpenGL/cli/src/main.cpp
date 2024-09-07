@@ -34,27 +34,13 @@ int main() {
 	auto render_obj_mgr = RenderObjectManager::GetInstance();
 
 	// init from config
-	render_obj_mgr->InitRenderObj("./config/sphere.json");
+	render_obj_mgr->InitRenderObj("./config/ellipsoid.json");
 	auto render_objs = render_obj_mgr->GetRenderObjs();
 	// window
 	GLFWwindow* window = glfw_instance->GetWindow();
 
 	// imgui
 	ImGuiManager* imgui_instance = ImGuiManager::GetInstance(window);
-
-	/****************** axis **********************/
-	//AxisObj axis_obj = AxisObj();
-
-	/****************** case for rect  **********************/
-	// https://learnopengl.com/code_viewer_gh.php?code=src/1.getting_started/2.2.hello_triangle_indexed/hello_triangle_indexed.cpp
-	//RectangleObj rect_obj = RectangleObj();
-
-	/*************** case for 3D box  ********************/
-	// https://learnopengl.com/code_viewer_gh.php?code=src/1.getting_started/7.4.camera_class/camera_class.cpp
-	//BoxObj box_obj = BoxObj();
-
-	/******************* sphere ****************************/
-	//SphereObj sphere_obj = SphereObj();
 
 	glm::mat4 projection = glm::perspective(glm::radians(camera.m_zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 	glm::mat4 view = camera.GetViewMatrix();

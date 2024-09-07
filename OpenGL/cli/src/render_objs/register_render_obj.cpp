@@ -1,4 +1,4 @@
-#include "register_obj.h"
+#include "register_render_obj.h"
 
 namespace renderable {
 #define DECLEAR_REGISTER_OBJECT(OBJNAME) \
@@ -8,10 +8,16 @@ namespace renderable {
 
 	DECLEAR_REGISTER_OBJECT(Axis);
 	DECLEAR_REGISTER_OBJECT(Sphere);
+	DECLEAR_REGISTER_OBJECT(Box);
+	DECLEAR_REGISTER_OBJECT(Rectangle2D);
+	DECLEAR_REGISTER_OBJECT(Ellipsoid);
 
 	std::unordered_map<std::string, std::function<std::shared_ptr<RenderObjectBase>()>> register_obj{
 		{"axis", RenderObjectFactory::CreateAxis},
-		{"sphere", RenderObjectFactory::CreateSphere}
+		{"sphere", RenderObjectFactory::CreateSphere},
+		{"box", RenderObjectFactory::CreateBox},
+		{"rectangle2d", RenderObjectFactory::CreateRectangle2D},
+		{"ellipsoid", RenderObjectFactory::CreateEllipsoid}
 	};
 
 	std::unordered_map<std::string, std::function<std::shared_ptr<RenderObjectBase>()>>& GetRegisterRenderObj()

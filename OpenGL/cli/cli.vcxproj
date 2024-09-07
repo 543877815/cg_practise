@@ -27,11 +27,18 @@
     <ClCompile Include="..\..\includes\imgui\imgui_tables.cpp" />
     <ClCompile Include="..\..\includes\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\common\glad.c" />
+    <ClCompile Include="..\common\texture.cpp" />
     <ClCompile Include="..\common\vertexbuffer.cpp" />
     <ClCompile Include="src\config_parser.cpp" />
     <ClCompile Include="src\imgui_mgr.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\render_objs\register_obj.cpp" />
+    <ClCompile Include="src\render_objs\aabb_obj.cpp" />
+    <ClCompile Include="src\render_objs\axis_obj.cpp" />
+    <ClCompile Include="src\render_objs\box_obj.cpp" />
+    <ClCompile Include="src\render_objs\ellipsoid_obj.cpp" />
+    <ClCompile Include="src\render_objs\rectangle2d_obj.cpp" />
+    <ClCompile Include="src\render_objs\register_render_obj.cpp" />
+    <ClCompile Include="src\render_objs\sphere_obj.cpp" />
     <ClCompile Include="src\render_obj_mgr.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -47,7 +54,6 @@
     <ClInclude Include="..\..\includes\stb\stb_image.h" />
     <ClInclude Include="..\common\camera.h" />
     <ClInclude Include="..\common\glfw_mgr.h" />
-    <ClInclude Include="..\common\render_object.h" />
     <ClInclude Include="..\common\shader_c.h" />
     <ClInclude Include="..\common\shader_s.h" />
     <ClInclude Include="..\common\texture.h" />
@@ -58,17 +64,20 @@
     <ClInclude Include="src\imgui_mgr.h" />
     <ClInclude Include="src\render_objs\aabb_obj.h" />
     <ClInclude Include="src\render_objs\axis_obj.h" />
-    <ClInclude Include="src\render_objs\box3d_obj.h" />
+    <ClInclude Include="src\render_objs\box_obj.h" />
     <ClInclude Include="src\render_objs\common.h" />
     <ClInclude Include="src\render_objs\ellipsoid_obj.h" />
     <ClInclude Include="src\render_objs\rectangle2d_obj.h" />
-    <ClInclude Include="src\render_objs\register_obj.h" />
+    <ClInclude Include="src\render_objs\register_render_obj.h" />
+    <ClInclude Include="src\render_objs\render_obj.h" />
     <ClInclude Include="src\render_objs\sphere_obj.h" />
     <ClInclude Include="src\render_obj_mgr.h" />
     <ClInclude Include="src\thread_pool.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="config\box.json" />
+    <None Include="config\ellipsoid.json" />
+    <None Include="config\rectangle2d.json" />
     <None Include="config\sphere.json" />
     <None Include="shader\aabb_fs.glsl" />
     <None Include="shader\aabb_vs.glsl" />
@@ -177,7 +186,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -193,6 +202,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

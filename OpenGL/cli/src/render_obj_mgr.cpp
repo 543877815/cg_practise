@@ -2,6 +2,43 @@
 
 
 std::shared_ptr<RenderObjectManager> RenderObjectManager::instance = nullptr;
+RenderObjectManager::RenderObjectManager()
+{
+	register_render_obj = renderable::GetRegisterRenderObj();
+}
+
+std::vector<RenderObjectManager::RenderObjConfig>& RenderObjectManager::GetObjConfigs()
+{
+	return obj_configs;
+}
+
+std::vector<std::shared_ptr<renderable::RenderObjectBase>>& RenderObjectManager::GetRenderObjs()
+{
+	return render_objs;
+}
+
+std::shared_ptr<RenderObjectManager> RenderObjectManager::GetInstance()
+{
+	if (instance == nullptr) {
+		instance = std::make_shared<RenderObjectManager>();
+	}
+	return instance;
+}
+
+void RenderObjectManager::InitRenderObj(const std::string& config)
+{
+	ParseCameraConfig(config);
+	for (size_t i = 0; i < obj_configs.size(); i++) {
+		auto& obj = obj_configs[i];
+		if (register_render_obj.count(obj.type)) {
+			render_objs.emplace_back(register_render_obj[obj.type]());
+		}
+		else {
+			std::cerr << std::format("Error occur: the object: {} is not regisered yet.", obj.type) << std::endl;
+		}
+	}
+}
+
 void RenderObjectManager::ParseCameraConfig(const std::string& path)
 {
 	std::ifstream ifs(path);
