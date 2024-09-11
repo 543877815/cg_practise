@@ -34,7 +34,8 @@ int main() {
 	auto render_obj_mgr = RenderObjectManager::GetInstance();
 
 	// init from config
-	render_obj_mgr->InitRenderObj("./config/ellipsoid.json");
+	std::vector<std::string> configs{ "./config/sphere.json" };
+	render_obj_mgr->InitRenderObjs(configs);
 	auto render_objs = render_obj_mgr->GetRenderObjs();
 	// window
 	GLFWwindow* window = glfw_instance->GetWindow();

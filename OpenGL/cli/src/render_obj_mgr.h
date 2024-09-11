@@ -21,6 +21,7 @@ public:
 	std::vector<RenderObjConfig>& GetObjConfigs();
 	std::vector<std::shared_ptr<renderable::RenderObjectBase>>& GetRenderObjs();
 	static std::shared_ptr<RenderObjectManager> GetInstance();
+	void InitRenderObjs(std::vector<std::string>& configs);
 	void InitRenderObj(const std::string& config);
 
 private:

@@ -25,6 +25,12 @@ std::shared_ptr<RenderObjectManager> RenderObjectManager::GetInstance()
 	return instance;
 }
 
+void RenderObjectManager::InitRenderObjs(std::vector<std::string>& configs) {
+	for (auto config : configs) {
+		InitRenderObj(config);
+	}
+}
+
 void RenderObjectManager::InitRenderObj(const std::string& config)
 {
 	ParseCameraConfig(config);
