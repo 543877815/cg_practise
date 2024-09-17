@@ -28,6 +28,9 @@
     <Filter Include="render_objs">
       <UniqueIdentifier>{948e6f1a-71d0-482a-aba7-e15cd32c50ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{94b233f6-7ff6-4d74-969c-d05f09bd63ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -91,6 +94,9 @@
       <Filter>render_objs</Filter>
     </ClCompile>
     <ClCompile Include="src\render_objs\ellipsoid_obj.cpp">
+      <Filter>render_objs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render_objs\map_obj.cpp">
       <Filter>render_objs</Filter>
     </ClCompile>
   </ItemGroup>
@@ -188,6 +194,12 @@
     <ClInclude Include="src\render_objs\render_obj.h">
       <Filter>render_objs</Filter>
     </ClInclude>
+    <ClInclude Include="src\render_objs\map_obj.h">
+      <Filter>render_objs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\utils.h">
+      <Filter>utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shader\axis_fs.glsl">
@@ -230,6 +242,15 @@
       <Filter>config</Filter>
     </None>
     <None Include="config\ellipsoid.json">
+      <Filter>config</Filter>
+    </None>
+    <None Include="shader\map_fs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="shader\map_vs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="config\map.json">
       <Filter>config</Filter>
     </None>
   </ItemGroup>

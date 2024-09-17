@@ -36,6 +36,7 @@
     <ClCompile Include="src\render_objs\axis_obj.cpp" />
     <ClCompile Include="src\render_objs\box_obj.cpp" />
     <ClCompile Include="src\render_objs\ellipsoid_obj.cpp" />
+    <ClCompile Include="src\render_objs\map_obj.cpp" />
     <ClCompile Include="src\render_objs\rectangle2d_obj.cpp" />
     <ClCompile Include="src\render_objs\register_render_obj.cpp" />
     <ClCompile Include="src\render_objs\sphere_obj.cpp" />
@@ -67,16 +68,19 @@
     <ClInclude Include="src\render_objs\box_obj.h" />
     <ClInclude Include="src\render_objs\common.h" />
     <ClInclude Include="src\render_objs\ellipsoid_obj.h" />
+    <ClInclude Include="src\render_objs\map_obj.h" />
     <ClInclude Include="src\render_objs\rectangle2d_obj.h" />
     <ClInclude Include="src\render_objs\register_render_obj.h" />
     <ClInclude Include="src\render_objs\render_obj.h" />
     <ClInclude Include="src\render_objs\sphere_obj.h" />
     <ClInclude Include="src\render_obj_mgr.h" />
     <ClInclude Include="src\thread_pool.h" />
+    <ClInclude Include="src\utils\utils.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="config\box.json" />
     <None Include="config\ellipsoid.json" />
+    <None Include="config\map.json" />
     <None Include="config\rectangle2d.json" />
     <None Include="config\sphere.json" />
     <None Include="shader\aabb_fs.glsl" />
@@ -85,6 +89,8 @@
     <None Include="shader\axis_vs.glsl" />
     <None Include="shader\box_fs.glsl" />
     <None Include="shader\box_vs.glsl" />
+    <None Include="shader\map_fs.glsl" />
+    <None Include="shader\map_vs.glsl" />
     <None Include="shader\rect_fs.glsl" />
     <None Include="shader\rect_vs.glsl" />
     <None Include="shader\sphere_fs.glsl" />

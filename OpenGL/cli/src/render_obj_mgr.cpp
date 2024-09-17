@@ -12,6 +12,11 @@ std::vector<RenderObjectManager::RenderObjConfig>& RenderObjectManager::GetObjCo
 	return obj_configs;
 }
 
+RenderObjectManager::RenderObjConfig& RenderObjectManager::GetObjConfig(size_t idx)
+{
+	return obj_configs[idx];
+}
+
 std::vector<std::shared_ptr<renderable::RenderObjectBase>>& RenderObjectManager::GetRenderObjs()
 {
 	return render_objs;
@@ -78,7 +83,7 @@ void RenderObjectManager::ParseCameraConfig(const std::string& path)
 		const rapidjson::Value& uniform_info = obj_info["uniform"];
 		if (uniform_info.IsArray()) {
 			for (const auto& uniform : uniform_info.GetArray()) {
-				config.uniform.emplace_back(uniform.GetString());
+				config.uniform.insert(uniform.GetString());
 			}
 		}
 		else {

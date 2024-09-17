@@ -6,6 +6,7 @@
 #include "ellipsoid_obj.h"
 #include "sphere_obj.h"
 #include "rectangle2d_obj.h"
+#include "map_obj.h"
 #include <functional>
 #include <memory>
 
@@ -18,6 +19,7 @@ public:
 	static std::shared_ptr<RenderObjectBase> CreateBox();
 	static std::shared_ptr<RenderObjectBase> CreateRectangle2D();
 	static std::shared_ptr<RenderObjectBase> CreateEllipsoid();
+	static std::shared_ptr<RenderObjectBase> CreateMap();
 };
 
 

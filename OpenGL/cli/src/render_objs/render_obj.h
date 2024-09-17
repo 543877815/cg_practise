@@ -68,6 +68,7 @@ protected:
 	void SetVertexCount(int val) { m_vertexCount = val; }
 	void SetIndiceCount(int val) { m_indiceCount = val; }
 	void SetPrimitive(GLsizei val) { m_primitive = val; }
+	const GLsizei GetPrimitive() const { return m_primitive; }
 	uint32_t GetVAO() { return m_VAO; }
 	uint32_t GetVBO() { return m_VBO; }
 	uint32_t GetEBO() { return m_EBO; }
@@ -137,8 +138,11 @@ inline void RenderObject<vT, iT>::SetMesh(std::vector<vT>* vertices, std::vector
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(iT), static_cast<void*>(m_indices.data()), GL_STATIC_DRAW);
 	}
 
+
+	std::cout << sizeof(vT) << std::endl;
 	for (auto info : *infos)
 	{
+		std::cout << sizeof(info.type) << std::endl;
 		glVertexAttribPointer(info.attriLocation, info.count, info.type, info.normalized, info.offset * sizeof(vT), (void*)(info.stride * sizeof(info.type)));
 		glEnableVertexAttribArray(info.attriLocation);
 	}

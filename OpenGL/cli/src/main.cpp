@@ -34,9 +34,11 @@ int main() {
 	auto render_obj_mgr = RenderObjectManager::GetInstance();
 
 	// init from config
-	std::vector<std::string> configs{ "./config/sphere.json" };
+	std::vector<std::string> configs{ "./config/map.json" };
 	render_obj_mgr->InitRenderObjs(configs);
 	auto render_objs = render_obj_mgr->GetRenderObjs();
+	auto render_obj_configs = render_obj_mgr->GetObjConfigs();
+
 	// window
 	GLFWwindow* window = glfw_instance->GetWindow();
 
@@ -69,14 +71,20 @@ int main() {
 
 		for (size_t i = 0; i < render_objs.size(); i++) {
 			auto& render_obj = render_objs[i];
-
+			auto& config = render_obj_configs[i];
 			// Draw Call
 			std::unordered_map<std::string, std::any> uniform;
-			uniform.emplace("projection", projection);
-			uniform.emplace("view", view);
-			uniform.emplace("model", model);
-			render_obj->DrawObj(uniform);
+			if (config.uniform.count("projection")) {
+				uniform.emplace("projection", projection);
+			}
+			if (config.uniform.count("view")) {
+				uniform.emplace("view", view);
+			}
+			if (config.uniform.count("model")) {
+				uniform.emplace("model", model);
+			}
 
+			render_obj->DrawObj(uniform);
 			// ImGUI Callback
 			auto callback = [&render_obj]() {
 				render_obj->ImGuiCallback();
