@@ -53,12 +53,12 @@ void MapObj::SetUpData()
 
 			if (i != m_grid_width && j != m_grid_height) {
 				indices.emplace_back(i + j * num_vertices_per_row);
-				indices.emplace_back(i + 1 + j * num_vertices_per_row);
 				indices.emplace_back(i + 1 + (j + 1) * num_vertices_per_row);
+				indices.emplace_back(i + 1 + j * num_vertices_per_row);
 
-				indices.emplace_back(i + j * num_vertices_per_row);
 				indices.emplace_back(i + (j + 1) * num_vertices_per_row);
 				indices.emplace_back(i + 1 + (j + 1) * num_vertices_per_row);
+				indices.emplace_back(i + j * num_vertices_per_row);
 			}
 		}
 	}
@@ -77,6 +77,8 @@ void MapObj::SetUpData()
 
 void MapObj::SetUpShader()
 {
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 	m_shader = std::make_unique<Shader>("./shader/map_vs.glsl", "./shader/map_fs.glsl");
 }
 
@@ -109,17 +111,25 @@ void MapObj::SetUpTexture(int num)
 
 void MapObj::ImGuiCallback()
 {
-	static bool show_point = false;
-	if (ImGui::Checkbox(show_point ? "Show triangle:" : "Show point:", &show_point)) {
-		if (show_point) {
-			SetPrimitive(GL_POINTS);
-		}
-		else {
-			SetPrimitive(GL_TRIANGLES);
-		}
-	}
-
 	bool is_change = false;
+
+	static int selection = 0;
+	if (ImGui::CollapsingHeader("Rasterization Mode")) {
+		is_change |= ImGui::RadioButton("point", &selection, 0);
+		ImGui::SameLine();
+		is_change |= ImGui::RadioButton("line", &selection, 1);
+		ImGui::SameLine();
+		is_change |= ImGui::RadioButton("fill", &selection, 2);
+	}
+	if (selection == 0) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+	}
+	else if (selection == 1) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+	else if (selection == 2) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
 
 	is_change |= ImGui::SliderInt("grid_width", &m_grid_width, 2, 50);
 	is_change |= ImGui::SliderInt("grid_height", &m_grid_height, 2, 50);
