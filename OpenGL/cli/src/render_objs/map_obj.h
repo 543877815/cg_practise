@@ -9,11 +9,15 @@ static struct Point {
 	float u = 0.0, v = 0.0;
 
 	Point operator+(const Point& other) const {
-		return Point{ x + other.x, y + other.y, z + other.z };
+		return Point{ x + other.x, y + other.y, z + other.z,
+		r + other.r, g + other.g, b + other.b, 
+		u + other.u, v + other.v};
 	}
 
 	Point operator*(float scalar) const {
-		return Point{ x * scalar, y * scalar, z * scalar };
+		return Point{ x * scalar, y * scalar, z * scalar,
+		r * scalar, g * scalar, b * scalar,
+		u * scalar, v * scalar};
 	}
 
 	friend Point operator*(float scalar, const Point& point) {
@@ -39,7 +43,7 @@ private:
 	void SetUpTexture(int num = 0) override;
 	void SetUpShader() override;
 	void SetUpData() override;
-	Point UV2XYZ(const Point& point, float r);
+	void UV2XYZ(const Point& point, Point& xyz);
 
 private:
 	float m_grid_left = -1.0;

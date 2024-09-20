@@ -10,15 +10,33 @@ MapObj::MapObj()
 
 
 #define PI 3.1415926535
-Point MapObj::UV2XYZ(const Point& uv, float radius) {
-	float longitube = (uv.x * 180 + 90) * PI / 180;
-	float latitube = uv.y * 90 * PI / 180;
-	Point xyz;
-	xyz.x = -radius * cos(latitube) * cos(longitube);
-	xyz.y = radius * sin(latitube);
-	xyz.z = -radius * cos(latitube) * sin(longitube);
+void MapObj::UV2XYZ(const Point& uv, Point& xyz) {
+	float lon = uv.x * 180;
+	float lat = uv.y * 90;
 
-	return xyz;
+	float radlon = (lon - 90) * PI / 180;
+	float radlat = lat * PI / 180;
+
+	const double earth_perimeter = 20037508.34;
+	const double earth_radius = 6378137.0;
+
+	xyz.x = cos(radlat) * cos(radlon);
+	xyz.y = sin(radlat);
+	xyz.z = cos(radlat) * sin(radlon);
+
+	if (abs(lat) < 85) {
+		float WebMercatorX = earth_radius * radlon;
+		float WebMercatorY = earth_radius * log(tan((PI / 4) + (radlat / 2)));
+
+		xyz.u = (WebMercatorX / earth_perimeter + 1.0) / 2.0;
+		xyz.v = (WebMercatorY / earth_perimeter + 1.0) / 2.0;
+	}
+	else {
+		xyz.u = uv.u;
+		xyz.v = uv.v;
+	}
+
+
 }
 
 
@@ -37,19 +55,15 @@ void MapObj::SetUpData()
 	{
 		for (uint32_t j = 0; j <= m_grid_height; j++)
 		{
-			Point start(m_grid_left + i * grid_unit_width, m_grid_bottom + j * grid_unit_height, 0.0);
-			Point end(UV2XYZ(start, 1));
+			Point start{ .x = m_grid_left + i * grid_unit_width,
+						 .y = m_grid_bottom + j * grid_unit_height,
+						 .u = uv_unit_width * i,
+						 .v = uv_unit_height * j };
 
-			m_vertices.emplace_back(Point());
-			m_vertices.back().x = start.x * (1 - m_transform_scale) + end.x * m_transform_scale;
-			m_vertices.back().y = start.y * (1 - m_transform_scale) + end.y * m_transform_scale;
-			m_vertices.back().z = start.z * (1 - m_transform_scale) + end.z * m_transform_scale;
+			Point end;
+			UV2XYZ(start, end);
 
-			m_vertices.back().u = uv_unit_width * i;
-			m_vertices.back().v = uv_unit_height * j;
-			m_vertices.back().r = m_vertices.back().u;
-			m_vertices.back().g = m_vertices.back().v;
-			m_vertices.back().b = 1.0f;
+			m_vertices.emplace_back(start * (1 - m_transform_scale) + end * m_transform_scale);
 
 			if (i != m_grid_width && j != m_grid_height) {
 				indices.emplace_back(i + j * num_vertices_per_row);
@@ -113,7 +127,7 @@ void MapObj::ImGuiCallback()
 {
 	bool is_change = false;
 
-	static int selection = 0;
+	static int selection = 2;
 	if (ImGui::CollapsingHeader("Rasterization Mode")) {
 		is_change |= ImGui::RadioButton("point", &selection, 0);
 		ImGui::SameLine();

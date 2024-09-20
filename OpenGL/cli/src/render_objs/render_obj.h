@@ -139,10 +139,8 @@ inline void RenderObject<vT, iT>::SetMesh(std::vector<vT>* vertices, std::vector
 	}
 
 
-	std::cout << sizeof(vT) << std::endl;
 	for (auto info : *infos)
 	{
-		std::cout << sizeof(info.type) << std::endl;
 		glVertexAttribPointer(info.attriLocation, info.count, info.type, info.normalized, info.offset * sizeof(vT), (void*)(info.stride * sizeof(info.type)));
 		glEnableVertexAttribArray(info.attriLocation);
 	}
