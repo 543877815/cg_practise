@@ -2,8 +2,6 @@
 #include "glfw_mgr.h"
 #include "camera.h"
 
-extern Camera camera;
-
 void framebufferSizeCallback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
@@ -15,7 +13,8 @@ void mouseCallback(GLFWwindow* window, double xpos, double ypos)
 
 void scrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
-	camera.ProcessMouseScroll(static_cast<float>(yoffset));
+	auto camera = Camera::GetInstance();
+	camera->ProcessMouseScroll(static_cast<float>(yoffset));
 }
 
 void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
@@ -75,7 +74,7 @@ void processInput(GLFWwindow* window, Camera& camera, float deltaTime)
 
 }
 
-void processModel(GLFWwindow* window, glm::mat4& modelMatrix) {
+void processModelMatrix(GLFWwindow* window, glm::mat4& modelMatrix) {
 	// modelMatrix
 	glm::vec3 axis = glm::vec3(1.0f, 0.0f, 0.0f);
 	float rotationSpeed = 0.1f;
@@ -117,7 +116,8 @@ void rotate4(glm::mat4& matrix, float rad, float x, float y, float z) {
 	matrix = glm::rotate(matrix, glm::radians(rad), glm::vec3(x, y, z));
 }
 
-void processViewCamera(GLFWwindow* window, Camera& camera, const int& SCR_WIDTH, const int& SCR_HEIGHT) {
+void processViewCamera(GLFWwindow* window, const int& SCR_WIDTH, const int& SCR_HEIGHT) {
+	auto camera = Camera::GetInstance();
 	float transitionSpeed = 0.001f;
 	float rotationSpeed = 0.005f;
 	static glm::vec3 Front = glm::vec3(0.0f, 0.0f, -1.0f);
@@ -135,7 +135,7 @@ void processViewCamera(GLFWwindow* window, Camera& camera, const int& SCR_WIDTH,
 	bool KeyI = glfwGetKey(window, GLFW_KEY_I);
 	bool shift = glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) || glfwGetKey(window, GLFW_KEY_LEFT_SHIFT);
 
-	glm::mat4 inverseMatrix = glm::inverse(camera.m_viewMatrix);
+	glm::mat4 inverseMatrix = glm::inverse(camera->GetViewMatrix());
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
 		if (shift) {
 			translate4(inverseMatrix, 0, -transitionSpeed, 0);
@@ -217,7 +217,7 @@ void processViewCamera(GLFWwindow* window, Camera& camera, const int& SCR_WIDTH,
 	}
 	/********************************************/
 
-	camera.m_viewMatrix = glm::inverse(inverseMatrix);
+	camera->SetViewMatrix(glm::inverse(inverseMatrix));
 
 }
 
@@ -255,8 +255,8 @@ void processViewWorld(GLFWwindow* window, Camera& camera)
 	}
 
 	glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), translateVector);
-	camera.m_position += translateVector;
-	camera.m_viewMatrix *= translationMatrix;
+	camera.SetPosition(camera.GetPosition() + translateVector);
+	camera.SetViewMatrix(camera.GetViewMatrix() * translationMatrix);
 
 	glm::vec3 axis = glm::vec3(1.0f, 0.0f, 0.0f);
 	float rotationSpeed = 0.1f;
@@ -287,5 +287,5 @@ void processViewWorld(GLFWwindow* window, Camera& camera)
 	}
 
 	glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), angle, axis);
-	camera.m_viewMatrix *= rotationMatrix;
+	camera.SetViewMatrix(camera.GetViewMatrix() * rotationMatrix);
 }

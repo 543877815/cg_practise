@@ -5,30 +5,33 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <functional>
+
 // common
+#include "camera.h"
+
 #include "glfw_mgr.h"
 #include "imgui_mgr.h"
+#include "config.h"
 
 // custom
 #include "callback.h"
 #include "config_parser.h"
 #include "render_obj_mgr.h"
-// screen
-const int SCR_WIDTH = 800;
-const int SCR_HEIGHT = 600;
 
-// camera
-extern Camera camera;
+extern const int SCR_WIDTH;
+extern const int SCR_HEIGHT;
 
 int main() {
-
 	// glfw
-	GLFWManager* glfw_instance = GLFWManager::GetInstance(SCR_WIDTH, SCR_HEIGHT);
+	auto glfw_instance = GLFWManager::GetInstance(SCR_WIDTH, SCR_HEIGHT);
 	glfw_instance->SetFrameBufferSizeCallback(framebufferSizeCallback);
 	glfw_instance->SetMouseButtonCallback(mouseButtonCallback);
 	glfw_instance->SetMouseCallback(mouseCallback);
 	glfw_instance->SetScrollCallback(scrollCallback);
 	glfw_instance->SetKeyCallback(keyCallback);
+
+	// camera
+	auto camera = Camera::GetInstance();
 
 	// register
 	auto render_obj_mgr = RenderObjectManager::GetInstance();
@@ -45,8 +48,6 @@ int main() {
 	// imgui
 	ImGuiManager* imgui_instance = ImGuiManager::GetInstance(window);
 
-	glm::mat4 projection = glm::perspective(glm::radians(camera.m_zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-	glm::mat4 view = camera.GetViewMatrix();
 	glm::mat4 model = glm::mat4(1.0f);
 
 	float lastFrame = 0;
@@ -63,10 +64,11 @@ int main() {
 		// mvp transform
 		//processInput(window, camera, deltaTime);
 		//processViewWorld(window, camera);
-		processViewCamera(window, camera, SCR_WIDTH, SCR_HEIGHT);
-		processModel(window, model);
-		view = camera.GetViewMatrix();
-		projection = glm::perspective(glm::radians(camera.m_zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		processViewCamera(window, SCR_WIDTH, SCR_HEIGHT);
+		processModelMatrix(window, model);
+		glm::mat4& view = camera->GetViewMatrix();
+		glm::mat4& projection = camera->GetOrthogonalProjection();
+
 		std::vector<std::function<void()>> functions;
 
 		for (size_t i = 0; i < render_objs.size(); i++) {
@@ -83,7 +85,6 @@ int main() {
 			if (config.uniform.count("model")) {
 				uniform.emplace("model", model);
 			}
-
 			render_obj->DrawObj(uniform);
 			// ImGUI Callback
 			auto callback = [&render_obj]() {

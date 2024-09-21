@@ -5,8 +5,8 @@
 #include <unordered_map>
 #include <any>
 
-#include "shader_s.h"
-#include "texture.h"
+#include "../shader_s.h"
+#include "../texture.h"
 
 #define RENDERABLE_BEGIN namespace renderable {
 #define RENDERABLE_END }

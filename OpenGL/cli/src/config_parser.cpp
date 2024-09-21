@@ -28,12 +28,11 @@ void LoadCameraConfig()
 {
 	TCHAR szFile[MAX_PATH] = { 0 };
 	if (GetOFNPath(szFile, false)) {
-		std::stringstream ss;
-		ss << szFile;
 		std::ifstream file;
-		file.open(ss.str(), std::ifstream::in);
+		file.open(szFile, std::ifstream::in);
+		std::wstring ws(szFile);
 		if (file.fail()) {
-			std::cerr << "Unable to open file: " << ss.str() << std::endl;
+			std::wcout << "Unable to open file: " << szFile << std::endl;
 			return;
 		}
 

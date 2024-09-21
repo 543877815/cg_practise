@@ -10,7 +10,7 @@ Rectangle2DObj::Rectangle2DObj()
 
 void Rectangle2DObj::DrawObj(const std::unordered_map<std::string, std::any>& uniform)
 {
-	m_shader->use();
+	m_shader->Use();
 	RenderObject::Draw();
 }
 

@@ -1,6 +1,5 @@
 #pragma once
 #include "common.h"
-#include "texture.h"
 
 // https://learnopengl.com/code_viewer_gh.php?code=src/1.getting_started/7.4.camera_class/camera_class.cpp
 RENDERABLE_BEGIN

@@ -35,10 +35,10 @@ void AABBObj::DrawObj(const std::unordered_map<std::string, std::any>& uniform)
 	auto view = std::any_cast<glm::mat4>(uniform.at("view"));
 	auto model = std::any_cast<glm::mat4>(uniform.at("model"));
 
-	m_shader->use();
-	m_shader->setMat4("projection", projection);
-	m_shader->setMat4("view", view);
-	m_shader->setMat4("model", model);
+	m_shader->Use();
+	m_shader->SetMat4("projection", projection);
+	m_shader->SetMat4("view", view);
+	m_shader->SetMat4("model", model);
 	RenderObject::Draw();
 }
 

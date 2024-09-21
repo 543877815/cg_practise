@@ -17,10 +17,10 @@ void BoxObj::DrawObj(const std::unordered_map<std::string, std::any>& uniform)
 	auto view = std::any_cast<glm::mat4>(uniform.at("view"));
 	auto model = std::any_cast<glm::mat4>(uniform.at("model"));
 
-	m_shader->use();
-	m_shader->setMat4("projection", projection);
-	m_shader->setMat4("view", view);
-	m_shader->setMat4("model", model);
+	m_shader->Use();
+	m_shader->SetMat4("projection", projection);
+	m_shader->SetMat4("view", view);
+	m_shader->SetMat4("model", model);
 	for (auto idx : m_textureIdx) {
 		m_textures->BindTexture(idx);
 	}
@@ -35,9 +35,9 @@ void BoxObj::SetUpTexture(int num)
 	size_t idx2 = m_textures->GenerateTexture("./textures/container.jpg");
 	m_textureIdx.emplace_back(idx2);
 
-	m_shader->use();
-	m_shader->setInt("texture1", idx1);
-	m_shader->setInt("texture2", idx2);
+	m_shader->Use();
+	m_shader->SetInt("texture1", idx1);
+	m_shader->SetInt("texture2", idx2);
 
 }
 

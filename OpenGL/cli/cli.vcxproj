@@ -27,8 +27,7 @@
     <ClCompile Include="..\..\includes\imgui\imgui_tables.cpp" />
     <ClCompile Include="..\..\includes\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\common\glad.c" />
-    <ClCompile Include="..\common\texture.cpp" />
-    <ClCompile Include="..\common\vertexbuffer.cpp" />
+    <ClCompile Include="src\camera.cpp" />
     <ClCompile Include="src\config_parser.cpp" />
     <ClCompile Include="src\imgui_mgr.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -41,6 +40,10 @@
     <ClCompile Include="src\render_objs\register_render_obj.cpp" />
     <ClCompile Include="src\render_objs\sphere_obj.cpp" />
     <ClCompile Include="src\render_obj_mgr.cpp" />
+    <ClCompile Include="src\shader_c.cpp" />
+    <ClCompile Include="src\shader_s.cpp" />
+    <ClCompile Include="src\texture.cpp" />
+    <ClCompile Include="src\vertexbuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\includes\imgui\imconfig.h" />
@@ -53,15 +56,12 @@
     <ClInclude Include="..\..\includes\imgui\imstb_textedit.h" />
     <ClInclude Include="..\..\includes\imgui\imstb_truetype.h" />
     <ClInclude Include="..\..\includes\stb\stb_image.h" />
-    <ClInclude Include="..\common\camera.h" />
-    <ClInclude Include="..\common\glfw_mgr.h" />
-    <ClInclude Include="..\common\shader_c.h" />
-    <ClInclude Include="..\common\shader_s.h" />
-    <ClInclude Include="..\common\texture.h" />
-    <ClInclude Include="..\common\vertexbuffer.h" />
     <ClInclude Include="src\aabb.h" />
     <ClInclude Include="src\callback.h" />
+    <ClInclude Include="src\camera.h" />
+    <ClInclude Include="src\config.h" />
     <ClInclude Include="src\config_parser.h" />
+    <ClInclude Include="src\glfw_mgr.h" />
     <ClInclude Include="src\imgui_mgr.h" />
     <ClInclude Include="src\render_objs\aabb_obj.h" />
     <ClInclude Include="src\render_objs\axis_obj.h" />
@@ -74,8 +74,12 @@
     <ClInclude Include="src\render_objs\render_obj.h" />
     <ClInclude Include="src\render_objs\sphere_obj.h" />
     <ClInclude Include="src\render_obj_mgr.h" />
+    <ClInclude Include="src\shader_c.h" />
+    <ClInclude Include="src\shader_s.h" />
+    <ClInclude Include="src\texture.h" />
     <ClInclude Include="src\thread_pool.h" />
     <ClInclude Include="src\utils\utils.h" />
+    <ClInclude Include="src\vertexbuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="config\box.json" />
@@ -193,6 +197,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)includes;$(SolutionDir)includes\opencv2\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -209,6 +214,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)includes;$(SolutionDir)includes\opencv2\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

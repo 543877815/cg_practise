@@ -60,17 +60,11 @@
     <ClCompile Include="..\..\includes\imgui\imgui_demo.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="..\common\vertexbuffer.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
     <ClCompile Include="src\imgui_mgr.cpp">
       <Filter>cpp</Filter>
     </ClCompile>
     <ClCompile Include="src\config_parser.cpp">
       <Filter>cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\common\texture.cpp">
-      <Filter>common</Filter>
     </ClCompile>
     <ClCompile Include="src\render_objs\aabb_obj.cpp">
       <Filter>render_objs</Filter>
@@ -98,6 +92,21 @@
     </ClCompile>
     <ClCompile Include="src\render_objs\map_obj.cpp">
       <Filter>render_objs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\camera.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shader_c.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shader_s.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\texture.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vertexbuffer.cpp">
+      <Filter>cpp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -131,29 +140,8 @@
     <ClInclude Include="src\callback.h">
       <Filter>hpp</Filter>
     </ClInclude>
-    <ClInclude Include="..\common\camera.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\common\glfw_mgr.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\common\shader_s.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\includes\stb\stb_image.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\common\texture.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\common\vertexbuffer.h">
-      <Filter>common</Filter>
-    </ClInclude>
     <ClInclude Include="src\aabb.h">
       <Filter>hpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\common\shader_c.h">
-      <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="src\config_parser.h">
       <Filter>hpp</Filter>
@@ -199,6 +187,30 @@
     </ClInclude>
     <ClInclude Include="src\utils\utils.h">
       <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\texture.h">
+      <Filter>hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\stb\stb_image.h">
+      <Filter>hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shader_c.h">
+      <Filter>hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\glfw_mgr.h">
+      <Filter>hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\camera.h">
+      <Filter>hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shader_s.h">
+      <Filter>hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vertexbuffer.h">
+      <Filter>hpp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\config.h">
+      <Filter>common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
