@@ -1,5 +1,5 @@
 #include "render_obj_mgr.h"
-
+#include <mutex>
 
 std::shared_ptr<RenderObjectManager> RenderObjectManager::instance = nullptr;
 RenderObjectManager::RenderObjectManager()
@@ -24,6 +24,8 @@ std::vector<std::shared_ptr<renderable::RenderObjectBase>>& RenderObjectManager:
 
 std::shared_ptr<RenderObjectManager> RenderObjectManager::GetInstance()
 {
+	static std::mutex mutex;
+	std::lock_guard<std::mutex> lock(mutex);
 	if (instance == nullptr) {
 		instance = std::make_shared<RenderObjectManager>();
 	}

@@ -124,6 +124,7 @@ public:
 	~GLFWManager() {
 		glfwDestroyWindow(m_window);
 		glfwTerminate();
+		m_window = nullptr;
 	}
 
 private:

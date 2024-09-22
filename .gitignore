@@ -9,3 +9,4 @@ x64/
 *.dll
 Plug-and-play/test
 *.exe
+*.ini

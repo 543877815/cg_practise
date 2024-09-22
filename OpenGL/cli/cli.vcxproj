@@ -63,6 +63,7 @@
     <ClInclude Include="src\config_parser.h" />
     <ClInclude Include="src\glfw_mgr.h" />
     <ClInclude Include="src\imgui_mgr.h" />
+    <ClInclude Include="src\render_main.h" />
     <ClInclude Include="src\render_objs\aabb_obj.h" />
     <ClInclude Include="src\render_objs\axis_obj.h" />
     <ClInclude Include="src\render_objs\box_obj.h" />

@@ -31,11 +31,20 @@
     <Filter Include="utils">
       <UniqueIdentifier>{94b233f6-7ff6-4d74-969c-d05f09bd63ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="camera">
+      <UniqueIdentifier>{adafb3ac-6783-4575-8998-022399f02f40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render_objs\structure">
+      <UniqueIdentifier>{c73c3ab3-141a-4bbb-b0a6-ae95108f4abb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="manager">
+      <UniqueIdentifier>{905b492a-fe2b-458b-8403-b3f7c7cdea28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="draw">
+      <UniqueIdentifier>{f12f235e-b7af-49ad-9608-45d7e2342133}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
-      <Filter>cpp</Filter>
-    </ClCompile>
     <ClCompile Include="..\common\glad.c">
       <Filter>cpp</Filter>
     </ClCompile>
@@ -60,12 +69,6 @@
     <ClCompile Include="..\..\includes\imgui\imgui_demo.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="src\imgui_mgr.cpp">
-      <Filter>cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="src\config_parser.cpp">
-      <Filter>cpp</Filter>
-    </ClCompile>
     <ClCompile Include="src\render_objs\aabb_obj.cpp">
       <Filter>render_objs</Filter>
     </ClCompile>
@@ -74,9 +77,6 @@
     </ClCompile>
     <ClCompile Include="src\render_objs\register_render_obj.cpp">
       <Filter>render_objs</Filter>
-    </ClCompile>
-    <ClCompile Include="src\render_obj_mgr.cpp">
-      <Filter>cpp</Filter>
     </ClCompile>
     <ClCompile Include="src\render_objs\box_obj.cpp">
       <Filter>render_objs</Filter>
@@ -94,19 +94,31 @@
       <Filter>render_objs</Filter>
     </ClCompile>
     <ClCompile Include="src\camera.cpp">
-      <Filter>cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="src\shader_c.cpp">
-      <Filter>cpp</Filter>
+      <Filter>camera</Filter>
     </ClCompile>
     <ClCompile Include="src\shader_s.cpp">
-      <Filter>cpp</Filter>
+      <Filter>draw</Filter>
     </ClCompile>
-    <ClCompile Include="src\texture.cpp">
-      <Filter>cpp</Filter>
+    <ClCompile Include="src\shader_c.cpp">
+      <Filter>draw</Filter>
     </ClCompile>
     <ClCompile Include="src\vertexbuffer.cpp">
-      <Filter>cpp</Filter>
+      <Filter>draw</Filter>
+    </ClCompile>
+    <ClCompile Include="src\texture.cpp">
+      <Filter>draw</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render_obj_mgr.cpp">
+      <Filter>manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgui_mgr.cpp">
+      <Filter>manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\config_parser.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>draw</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,15 +152,6 @@
     <ClInclude Include="src\callback.h">
       <Filter>hpp</Filter>
     </ClInclude>
-    <ClInclude Include="src\aabb.h">
-      <Filter>hpp</Filter>
-    </ClInclude>
-    <ClInclude Include="src\config_parser.h">
-      <Filter>hpp</Filter>
-    </ClInclude>
-    <ClInclude Include="src\thread_pool.h">
-      <Filter>hpp</Filter>
-    </ClInclude>
     <ClInclude Include="src\render_objs\aabb_obj.h">
       <Filter>render_objs</Filter>
     </ClInclude>
@@ -173,12 +176,6 @@
     <ClInclude Include="src\render_objs\sphere_obj.h">
       <Filter>render_objs</Filter>
     </ClInclude>
-    <ClInclude Include="src\imgui_mgr.h">
-      <Filter>hpp</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render_obj_mgr.h">
-      <Filter>hpp</Filter>
-    </ClInclude>
     <ClInclude Include="src\render_objs\render_obj.h">
       <Filter>render_objs</Filter>
     </ClInclude>
@@ -188,28 +185,46 @@
     <ClInclude Include="src\utils\utils.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="src\texture.h">
-      <Filter>hpp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\includes\stb\stb_image.h">
-      <Filter>hpp</Filter>
-    </ClInclude>
-    <ClInclude Include="src\shader_c.h">
-      <Filter>hpp</Filter>
-    </ClInclude>
-    <ClInclude Include="src\glfw_mgr.h">
-      <Filter>hpp</Filter>
+    <ClInclude Include="src\config.h">
+      <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="src\camera.h">
-      <Filter>hpp</Filter>
+      <Filter>camera</Filter>
     </ClInclude>
-    <ClInclude Include="src\shader_s.h">
+    <ClInclude Include="src\render_main.h">
       <Filter>hpp</Filter>
     </ClInclude>
     <ClInclude Include="src\vertexbuffer.h">
-      <Filter>hpp</Filter>
+      <Filter>draw</Filter>
     </ClInclude>
-    <ClInclude Include="src\config.h">
+    <ClInclude Include="src\texture.h">
+      <Filter>draw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\includes\stb\stb_image.h">
+      <Filter>draw</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shader_s.h">
+      <Filter>draw</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shader_c.h">
+      <Filter>draw</Filter>
+    </ClInclude>
+    <ClInclude Include="src\thread_pool.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\aabb.h">
+      <Filter>render_objs\structure</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_obj_mgr.h">
+      <Filter>manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\imgui_mgr.h">
+      <Filter>manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\glfw_mgr.h">
+      <Filter>manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\config_parser.h">
       <Filter>common</Filter>
     </ClInclude>
   </ItemGroup>

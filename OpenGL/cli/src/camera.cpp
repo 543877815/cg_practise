@@ -1,5 +1,6 @@
 #include "camera.h"
 #include "config.h"
+#include <mutex>
 extern const int SCR_WIDTH;
 extern const int SCR_HEIGHT;
 
@@ -49,6 +50,9 @@ void Camera::ProcessMouseMovement(float xoffset, float yoffset, GLboolean constr
 
 std::shared_ptr<Camera> Camera::GetInstance()
 {
+	static std::mutex mutex;
+	std::lock_guard<std::mutex> lock(mutex);
+
 	if (m_instance == nullptr) {
 		m_instance = std::make_shared<Camera>();
 	}
