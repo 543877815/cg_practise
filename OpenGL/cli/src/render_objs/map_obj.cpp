@@ -8,7 +8,6 @@ MapObj::MapObj()
 	SetUpTexture(1);
 }
 
-
 #define PI 3.1415926535
 void MapObj::UV2XYZ(const Point& uv, Point& xyz) {
 	float lon = uv.x * 180;
@@ -112,6 +111,11 @@ void MapObj::DrawObj(const std::unordered_map<std::string, std::any>& uniform)
 
 void MapObj::SetUpTexture(int num)
 {
+	GLint maxTextureSize = 0;
+	glGetIntegerv(GL_MAX_TEXTURE_SIZE, &maxTextureSize);
+	GLint maxLayers = 0;
+	glGetIntegerv(GL_MAX_ARRAY_TEXTURE_LAYERS, &maxLayers);
+
 	m_textures = std::make_unique<Texture>(num);
 	size_t idx1 = m_textures->GenerateTexture("D:/jupyter_notebook/cg_practise/httplib/output/0/0/0.png");
 	m_textureIdx.emplace_back(idx1);

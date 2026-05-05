@@ -42,12 +42,13 @@ void RenderObjectManager::InitRenderObj(const std::string& config)
 {
 	ParseCameraConfig(config);
 	for (size_t i = 0; i < obj_configs.size(); i++) {
-		auto& obj = obj_configs[i];
-		if (register_render_obj.count(obj.type)) {
-			render_objs.emplace_back(register_render_obj[obj.type]());
+		auto& obj_config = obj_configs[i];
+		auto& obj_type = obj_config.obj_type;
+		if (register_render_obj.count(obj_type)) {
+			render_objs.emplace_back(register_render_obj[obj_type]());
 		}
 		else {
-			std::cerr << std::format("Error occur: the object: {} is not regisered yet.", obj.type) << std::endl;
+			std::cerr << std::format("Error occur: the object: {} is not regisered yet.", obj_type) << std::endl;
 		}
 	}
 }
@@ -78,9 +79,15 @@ void RenderObjectManager::ParseCameraConfig(const std::string& path)
 
 		const rapidjson::Value& obj_info = elem;
 
-		config.type = obj_info["object"].GetString();
+		config.obj_type = obj_info["object"].GetString();
 		config.vertex_shader = obj_info["vertex_shader"].GetString();
 		config.fragment_shader = obj_info["fragment_shader"].GetString();
+		if (obj_info.HasMember("projection") && obj_info["projection"].IsString()) {
+			config.projection = obj_info["projection"].GetString();
+		}
+		else {
+			config.projection = "perspective";
+		}
 
 		const rapidjson::Value& uniform_info = obj_info["uniform"];
 		if (uniform_info.IsArray()) {

@@ -168,8 +168,8 @@ void processViewCamera(GLFWwindow* window, const int& SCR_WIDTH, const int& SCR_
 
 	if (KeyJ || KeyK || KeyL || KeyI) {
 		int d = 4;
-		double dx = 20.0 / SCR_WIDTH;
-		double dy = 20.0 / SCR_HEIGHT;
+		float dx = 20.0f / static_cast<float>(SCR_WIDTH);
+		float dy = 20.0f / static_cast<float>(SCR_HEIGHT);
 		translate4(inverseMatrix, 0, 0, d);
 		if (KeyJ) rotate4(inverseMatrix, -dx, 0, 1, 0);
 		if (KeyL) rotate4(inverseMatrix, dx, 0, 1, 0);

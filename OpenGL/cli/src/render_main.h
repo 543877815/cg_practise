@@ -58,6 +58,27 @@ public:
 		m_last_frame = currentFrame;
 	}
 
+	void SetUpUniform(std::unordered_map<std::string, std::any>& uniform, const RenderObjectManager::RenderObjConfig& config) {
+		glm::mat4 model = glm::mat4(1.0f);
+		glm::mat4& view = m_camera->GetViewMatrix();
+
+
+		if (config.uniform.count("projection")) {
+			if (config.projection == "orthogonal") {
+				uniform.emplace("projection", m_camera->GetOrthogonal());
+			}
+			else {
+				uniform.emplace("projection", m_camera->GetPerspective());
+			}
+		}
+		if (config.uniform.count("view")) {
+			uniform.emplace("view", view);
+		}
+		if (config.uniform.count("model")) {
+			uniform.emplace("model", model);
+		}
+	}
+
 	void Draw() {
 		glm::mat4 model = glm::mat4(1.0f);
 
@@ -68,23 +89,16 @@ public:
 		processViewCamera(m_window, SCR_WIDTH, SCR_HEIGHT);
 		processModelMatrix(m_window, model);
 		std::vector<std::function<void()>> functions;
-		glm::mat4& view = m_camera->GetViewMatrix();
-		glm::mat4& projection = m_camera->GetOrthogonalProjection();
+
 
 		for (size_t i = 0; i < m_render_objs.size(); i++) {
 			auto& render_obj = m_render_objs[i];
 			auto& config = m_render_obj_configs[i];
+
 			// Draw Call
 			std::unordered_map<std::string, std::any> uniform;
-			if (config.uniform.count("projection")) {
-				uniform.emplace("projection", projection);
-			}
-			if (config.uniform.count("view")) {
-				uniform.emplace("view", view);
-			}
-			if (config.uniform.count("model")) {
-				uniform.emplace("model", model);
-			}
+			SetUpUniform(uniform, config);
+
 			render_obj->DrawObj(uniform);
 			// ImGUI Callback
 			auto callback = [&render_obj]() {

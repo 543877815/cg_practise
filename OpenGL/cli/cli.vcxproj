@@ -35,10 +35,12 @@
     <ClCompile Include="src\render_objs\axis_obj.cpp" />
     <ClCompile Include="src\render_objs\box_obj.cpp" />
     <ClCompile Include="src\render_objs\ellipsoid_obj.cpp" />
+    <ClCompile Include="src\render_objs\learningopengl_materials.cpp" />
     <ClCompile Include="src\render_objs\map_obj.cpp" />
     <ClCompile Include="src\render_objs\rectangle2d_obj.cpp" />
     <ClCompile Include="src\render_objs\register_render_obj.cpp" />
     <ClCompile Include="src\render_objs\sphere_obj.cpp" />
+    <ClCompile Include="src\render_objs\splat_obj.cpp" />
     <ClCompile Include="src\render_obj_mgr.cpp" />
     <ClCompile Include="src\shader_c.cpp" />
     <ClCompile Include="src\shader_s.cpp" />
@@ -69,11 +71,13 @@
     <ClInclude Include="src\render_objs\box_obj.h" />
     <ClInclude Include="src\render_objs\common.h" />
     <ClInclude Include="src\render_objs\ellipsoid_obj.h" />
+    <ClInclude Include="src\render_objs\learningopengl_materials.h" />
     <ClInclude Include="src\render_objs\map_obj.h" />
     <ClInclude Include="src\render_objs\rectangle2d_obj.h" />
     <ClInclude Include="src\render_objs\register_render_obj.h" />
     <ClInclude Include="src\render_objs\render_obj.h" />
     <ClInclude Include="src\render_objs\sphere_obj.h" />
+    <ClInclude Include="src\render_objs\splat_obj.h" />
     <ClInclude Include="src\render_obj_mgr.h" />
     <ClInclude Include="src\shader_c.h" />
     <ClInclude Include="src\shader_s.h" />
@@ -83,6 +87,7 @@
     <ClInclude Include="src\vertexbuffer.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="config\3.1.materials.json" />
     <None Include="config\box.json" />
     <None Include="config\ellipsoid.json" />
     <None Include="config\map.json" />
@@ -94,6 +99,10 @@
     <None Include="shader\axis_vs.glsl" />
     <None Include="shader\box_fs.glsl" />
     <None Include="shader\box_vs.glsl" />
+    <None Include="shader\learningopengl\3.1.light_cube_fs.glsl" />
+    <None Include="shader\learningopengl\3.1.light_cube_vs.glsl" />
+    <None Include="shader\learningopengl\3.1.materials_fs.glsl" />
+    <None Include="shader\learningopengl\3.1.materials_vs.glsl" />
     <None Include="shader\map_fs.glsl" />
     <None Include="shader\map_vs.glsl" />
     <None Include="shader\rect_fs.glsl" />

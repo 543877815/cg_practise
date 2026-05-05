@@ -33,8 +33,8 @@ public:
 
 	void SetViewMatrix(glm::mat4 mat) { m_viewMatrix = mat; }
 	glm::mat4& GetViewMatrix() { return m_viewMatrix; }
-	glm::mat4& GetOrthogonalProjection() { return m_orthogonalProjectionMatrix; }
-	glm::mat4& GetPerspectiveProjection() { return m_prospectiveProjectionMatrix; }
+	glm::mat4& GetOrthogonal() { return m_orthogonalProjectionMatrix; }
+	glm::mat4& GetPerspective() { return m_prospectiveProjectionMatrix; }
 	void SetPosition(glm::vec3 position) { m_position = position; }
 	glm::vec3& GetPosition() { return m_position; }
 	// processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)

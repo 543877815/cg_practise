@@ -5,6 +5,7 @@
 #include <mutex>
 #include <iostream>
 #include <memory>
+#include <format>
 
 void DefaultFramebufferSizeCallback(GLFWwindow* window, int width, int height) {
 	// 设置视口大小以匹配新窗口尺寸
@@ -12,11 +13,11 @@ void DefaultFramebufferSizeCallback(GLFWwindow* window, int width, int height) {
 }
 
 void DefaultMouseCallback(GLFWwindow* window, double xpos, double ypos) {
-	std::cout << "Mouse position: (" << xpos << ", " << ypos << ")" << std::endl;
+	std::cout << std::format("Mouse position: ({}, {})", xpos, ypos) << std::endl;
 }
 
 void DefaultScrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
-	std::cout << "Mouse scroll: (" << xoffset << ", " << yoffset << ")" << std::endl;
+	std::cout << std::format("Mouse scroll: ({}, {})", xoffset, yoffset) << std::endl;
 }
 
 void DefaultMouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {

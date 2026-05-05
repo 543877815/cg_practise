@@ -7,7 +7,7 @@ Texture::Texture(size_t tex_num) {
 	std::fill(m_textures.begin(), m_textures.end(), 0);
 }
 
-size_t Texture::GenerateTexture(const char* path) {
+size_t Texture::GenerateTexture(const std::string&path) {
 	size_t idx = 0;
 	for (size_t i = 0; i < m_textures.size(); i++) {
 		if (m_textures[i] == 0) {
@@ -26,7 +26,7 @@ size_t Texture::GenerateTexture(const char* path) {
 	// load image, create texture and generate mipmaps
 	int width, height, nrChannels;
 	stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-	unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 0);
+	unsigned char* data = stbi_load(path.c_str(), &width, &height, &nrChannels, 0);
 	if (data)
 	{
 		if (nrChannels == 3) {

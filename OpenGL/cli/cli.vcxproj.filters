@@ -43,6 +43,12 @@
     <Filter Include="draw">
       <UniqueIdentifier>{f12f235e-b7af-49ad-9608-45d7e2342133}</UniqueIdentifier>
     </Filter>
+    <Filter Include="render_objs\learningopengl">
+      <UniqueIdentifier>{227b61d0-0423-4748-8921-e7f25d1a6ce3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shader\learningopengl">
+      <UniqueIdentifier>{8ae1577d-2abe-4be6-88e9-bbc15b8fe5ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\common\glad.c">
@@ -73,9 +79,6 @@
       <Filter>render_objs</Filter>
     </ClCompile>
     <ClCompile Include="src\render_objs\axis_obj.cpp">
-      <Filter>render_objs</Filter>
-    </ClCompile>
-    <ClCompile Include="src\render_objs\register_render_obj.cpp">
       <Filter>render_objs</Filter>
     </ClCompile>
     <ClCompile Include="src\render_objs\box_obj.cpp">
@@ -117,8 +120,15 @@
     <ClCompile Include="src\config_parser.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="src\main.cpp">
-      <Filter>draw</Filter>
+    <ClCompile Include="src\render_objs\learningopengl_materials.cpp">
+      <Filter>render_objs\learningopengl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render_objs\splat_obj.cpp">
+      <Filter>render_objs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\render_objs\register_render_obj.cpp">
+      <Filter>render_objs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -168,9 +178,6 @@
       <Filter>render_objs</Filter>
     </ClInclude>
     <ClInclude Include="src\render_objs\rectangle2d_obj.h">
-      <Filter>render_objs</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render_objs\register_render_obj.h">
       <Filter>render_objs</Filter>
     </ClInclude>
     <ClInclude Include="src\render_objs\sphere_obj.h">
@@ -227,6 +234,15 @@
     <ClInclude Include="src\config_parser.h">
       <Filter>common</Filter>
     </ClInclude>
+    <ClInclude Include="src\render_objs\learningopengl_materials.h">
+      <Filter>render_objs\learningopengl</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_objs\splat_obj.h">
+      <Filter>render_objs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_objs\register_render_obj.h">
+      <Filter>render_objs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shader\axis_fs.glsl">
@@ -279,6 +295,21 @@
     </None>
     <None Include="config\map.json">
       <Filter>config</Filter>
+    </None>
+    <None Include="config\3.1.materials.json">
+      <Filter>config</Filter>
+    </None>
+    <None Include="shader\learningopengl\3.1.light_cube_fs.glsl">
+      <Filter>shader\learningopengl</Filter>
+    </None>
+    <None Include="shader\learningopengl\3.1.light_cube_vs.glsl">
+      <Filter>shader\learningopengl</Filter>
+    </None>
+    <None Include="shader\learningopengl\3.1.materials_fs.glsl">
+      <Filter>shader\learningopengl</Filter>
+    </None>
+    <None Include="shader\learningopengl\3.1.materials_vs.glsl">
+      <Filter>shader\learningopengl</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

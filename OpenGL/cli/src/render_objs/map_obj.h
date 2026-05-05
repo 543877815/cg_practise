@@ -10,14 +10,14 @@ static struct Point {
 
 	Point operator+(const Point& other) const {
 		return Point{ x + other.x, y + other.y, z + other.z,
-		r + other.r, g + other.g, b + other.b, 
-		u + other.u, v + other.v};
+		r + other.r, g + other.g, b + other.b,
+		u + other.u, v + other.v };
 	}
 
 	Point operator*(float scalar) const {
 		return Point{ x * scalar, y * scalar, z * scalar,
 		r * scalar, g * scalar, b * scalar,
-		u * scalar, v * scalar};
+		u * scalar, v * scalar };
 	}
 
 	friend Point operator*(float scalar, const Point& point) {
@@ -25,7 +25,6 @@ static struct Point {
 	}
 
 };
-
 
 
 class MapObj : public RenderObject<Point, uint32_t> {

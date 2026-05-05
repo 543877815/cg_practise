@@ -9,10 +9,11 @@
 class RenderObjectManager {
 public:
 	struct RenderObjConfig {
-		std::string type;
+		std::string obj_type;
 		std::string vertex_shader;
 		std::string fragment_shader;
 		std::unordered_set<std::string> uniform;
+		std::string projection;
 	};
 
 	RenderObjectManager();

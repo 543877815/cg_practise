@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <algorithm> 
+#include <format>
 
 class AABB {
 public:
@@ -67,8 +68,8 @@ public:
 
 	// Print the AABB information
 	void print() const {
-		std::cout << "AABB: Min Corner (" << m_minCorner.x << ", " << m_minCorner.y << ", " << m_minCorner.z << ") "
-			<< "Max Corner (" << m_maxCorner.x << ", " << m_maxCorner.y << ", " << m_maxCorner.z << ")" << std::endl;
+		std::cout << std::format("AABB: Min Corner ({}, {}, {})", m_minCorner.x, m_minCorner.y, m_minCorner.z)
+			<< std::format("Max Corner({}, {}, {})", m_maxCorner.x, m_maxCorner.y, m_maxCorner.z) << std::endl;
 	}
 };
 
